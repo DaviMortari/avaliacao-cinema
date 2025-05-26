@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap'">
+    <link rel="stylesheet" th:href="@{/criarConta.css}">
+    <title>Criar Conta</title>
+</head>
+<body>
+    <div class="cineavalia-header">
+        <h1>Cine<span>Avalia</span></h1>
+    </div>
+    <div class="container">
+        <section class="header">
+            <h1>Criar Conta</h1>
+        </section>
+        <form id="form" class="form">
+            <div class="form-content">
+                <label for="username">Nome do usuário</label>
+                <input type="text" id="username" placeholder="Digite o nome do usuário">
+
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Digite o seu email">
+
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="Digite sua senha">
+            </div>
+            <button type="submit" class="login">Cadastrar</button>
+        </form>
+    </div>
+</body>
+</html>

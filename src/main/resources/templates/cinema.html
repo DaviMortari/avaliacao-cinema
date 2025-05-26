@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineAvalia - Sua plataforma de avaliações de filmes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/cinema.css}">
+    
+</head>
+<body>
+    <header id="header">
+        <div class="logo">Cine<span>Avalia</span></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Filmes</a></li>
+                <li><a href="#">Séries</a></li>
+                <li><a href="#">Sobre Nós</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a th:href="@{/pages/entrar}" class="btn btn-outline">Entrar</a>
+            <a th:href="@{/pages/criarConta}" class="btn btn-primary">Criar Conta</a>
+        </div>
+    </header>
+
+    <!-- Seção Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bem-Vindo ao CineAvalia!</h1>
+            <p>Descubra os melhores e piores filmes segundo a comunidade</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Busque por filmes, séries ou usuários...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destaques -->
+    <section class="featured">
+        <h2 class="section-title">Em Destaque</h2>
+        <div class="carousel">
+            <div class="movie-card">
+                <img th:src="@{/img/alto_compadecida.jpg}" alt="Filme 1">
+                <div class="movie-info">
+                    <h3>O Auto da Compadecida</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.0</span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img th:src="@{/img/conclave.jpeg}" alt="Filme 2">
+                <div class="movie-info">
+                    <h3>Conclave</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <i class="far fa-star"></i>
+                        <span>3.5</span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="../img/ilha_do_medo.jpg" alt="Filme 3">
+                <div class="movie-info">
+                    <h3>Ilha do Medo</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0</span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="../img/poderoso_chefao.jpg" alt="Filme 4">
+                <div class="movie-info">
+                    <h3>O Poderoso Chefão</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>2.0</span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <div class="movie-card">
+                <img src="../img/titanic.jpg" alt="Filme 5">
+                <div class="movie-info">
+                    <h3>Titanic</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.0</span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top 10 Semanal -->
+    <section class="top-movies">
+        <h2 class="section-title">Top 10 Semanal</h2>
+        <div class="top-list">
+            <div class="top-item">
+                <span class="rank">1</span>
+                <div>
+                    <h3>Filme Top 1</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.8</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-item">
+                <span class="rank">2</span>
+                <div>
+                    <h3>Filme Top 2</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.7</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-item">
+                <span class="rank">3</span>
+                <div>
+                    <h3>Filme Top 3</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.6</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-item">
+                <span class="rank">4</span>
+                <div>
+                    <h3>Filme Top 4</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.5</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-item">
+                <span class="rank">5</span>
+                <div>
+                    <h3>Filme Top 5</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.4</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-item">
+                <span class="rank">6</span>
+                <div>
+                    <h3>Filme Top 6</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-item">
+                <span class="rank">7</span>
+                <div>
+                    <h3>Filme Top 7</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-item">
+                <span class="rank">8</span>
+                <div>
+                    <h3>Filme Top 8</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.1</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-item">
+                <span class="rank">9</span>
+                <div>
+                    <h3>Filme Top 9</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-item">
+                <span class="rank">10</span>
+                <div>
+                    <h3>Filme Top 10</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span>3.9</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="logo">Cine<span>Avalia</span></div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2025 CineAvalia. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Efeito de scroll no header
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Simulação de dados para o carrossel 
+        document.addEventListener('DOMContentLoaded', function() {
+            // adicionar lógica para carregar filmes dinamicamente aqui
+            console.log('Página carregada!');
+        });
+    </script>
+</body>
+</html>
