@@ -4,12 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.ui.Model;
+
 @Controller
 @RequestMapping("/pages")
 public class PagesController {
 
-    @GetMapping("/cinema")
-    public String cinema() {
+    @GetMapping("/home")
+    public String cinema(Model model) {
+        model.addAttribute("paginaAtual", "home");
         return "cinema";
     }
 

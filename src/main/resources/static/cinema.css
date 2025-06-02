@@ -74,6 +74,12 @@ nav a:hover {
     border-bottom: 2px solid var(--primary-color);
 }
 
+nav a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    cursor: default; /* opcional: impede clique */
+}
+
 .auth-buttons {
     display: flex;
     gap: 15px;
