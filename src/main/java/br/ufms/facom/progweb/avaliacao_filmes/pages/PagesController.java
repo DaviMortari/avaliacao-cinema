@@ -25,4 +25,10 @@ public class PagesController {
     public String criarConta() {
         return "criarConta";
     }
+
+    @GetMapping("/filmes")
+    public String filmes(Model model) {
+        model.addAttribute("paginaAtual", "filmes");
+        return "filmes";
+    }
 }

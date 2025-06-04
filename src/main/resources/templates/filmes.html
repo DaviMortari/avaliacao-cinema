@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineAvalia - Catálogo de Filmes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link para o CSS geral (cinema.css) e o específico (filmes.css) -->
+    <link rel="stylesheet" th:href="@{/cinema.css}">
+    <link rel="stylesheet" th:href="@{/filmes.css}">
+</head>
+<body>
+    <header id="header">
+        <div class="logo">Cine<span>Avalia</span></div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/pages/home}" th:classappend="${paginaAtual == 'home'} ? 'active' : ''">Home</a></li>
+                <li><a th:href="@{/pages/filmes}" th:classappend="${paginaAtual == 'filmes'} ? 'active' : ''">Filmes</a></li>
+                <li><a href="#">Séries</a></li>
+                <li><a href="#">Sobre Nós</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a th:href="@{/pages/entrar}" class="btn btn-outline">Entrar</a>
+            <a th:href="@{/pages/criarConta}" class="btn btn-primary">Criar Conta</a>
+        </div>
+    </header>
+
+    <!-- Seção de Listagem de Filmes -->
+    <main class="filmes-catalogo-container">
+        <section class="filmes-listagem">
+            <h1 class="section-title-filmes">Catálogo Completo de Filmes</h1>
+            <div class="filtros-busca">
+                <input type="text" placeholder="Buscar por título, gênero, diretor...">
+                <select name="genero" id="filtro-genero">
+                    <option value="">Todos os Gêneros</option>
+                    <option value="acao">Ação</option>
+                    <option value="comedia">Comédia</option>
+                    <option value="drama">Drama</option>
+                    <option value="ficcao">Ficção Científica</option>
+                    <option value="terror">Terror</option>
+                </select>
+                <button class="btn-buscar-filmes"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+
+            <div class="grid-filmes">
+                <!-- Exemplo de Card de Filme (Estes seriam gerados dinamicamente) -->
+                <div class="movie-card-item">
+                    <img th:src="@{/img/alto_compadecida.jpg}" alt="O Auto da Compadecida">
+                    <div class="movie-card-item-info">
+                        <h3>O Auto da Compadecida</h3>
+                        <p class="genero">Comédia, Drama</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i> 4.8
+                        </div>
+                        <a th:href="@{/filmes/1}" class="btn-ver-detalhes">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="movie-card-item">
+                    <img th:src="@{/img/poderoso_chefao.jpg}" alt="O Poderoso Chefão">
+                    <div class="movie-card-item-info">
+                        <h3>O Poderoso Chefão</h3>
+                        <p class="genero">Drama, Crime</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i> 4.9
+                        </div>
+                        <a th:href="@{/filmes/2}" class="btn-ver-detalhes">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="movie-card-item">
+                    <img th:src="@{/img/ilha_do_medo.jpg}" alt="Ilha do Medo">
+                    <div class="movie-card-item-info">
+                        <h3>Ilha do Medo</h3>
+                        <p class="genero">Suspense, Mistério</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i> 4.7
+                        </div>
+                        <a th:href="@{/filmes/3}" class="btn-ver-detalhes">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="movie-card-item">
+                    <img th:src="@{/img/titanic.jpg}" alt="Titanic">
+                    <div class="movie-card-item-info">
+                        <h3>Titanic</h3>
+                        <p class="genero">Romance, Drama</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i> 4.5
+                        </div>
+                        <a th:href="@{/filmes/4}" class="btn-ver-detalhes">Ver Detalhes</a>
+                    </div>
+                </div>
+                 <div class="movie-card-item">
+                    <img th:src="@{/img/conclave.jpeg}" alt="Conclave">
+                    <div class="movie-card-item-info">
+                        <h3>Conclave</h3>
+                        <p class="genero">Suspense, Drama</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i> 4.2
+                        </div>
+                        <a th:href="@{/filmes/5}" class="btn-ver-detalhes">Ver Detalhes</a>
+                    </div>
+                </div>
+                <!-- Adicionar mais cards conforme necessário -->
+            </div>
+
+            <!-- Paginação (Exemplo) -->
+            <nav class="paginacao">
+                <ul>
+                    <li><a href="#" class="page-link active">1</a></li>
+                    <li><a href="#" class="page-link">2</a></li>
+                    <li><a href="#" class="page-link">3</a></li>
+                    <li><a href="#" class="page-link">Próxima <i class="fas fa-chevron-right"></i></a></li>
+                </ul>
+            </nav>
+        </section>
+    </main>
+
+    <footer>
+        <div class="logo">Cine<span>Avalia</span></div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2025 CineAvalia. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Efeito de scroll no header (reutilizado de cinema.html)
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Lógica para o Thymeleaf marcar o link ativo no controller:
+        // No seu controller para a rota de filmes:
+        // model.addAttribute("paginaAtual", "filmes");
+    </script>
+</body>
+</html>
