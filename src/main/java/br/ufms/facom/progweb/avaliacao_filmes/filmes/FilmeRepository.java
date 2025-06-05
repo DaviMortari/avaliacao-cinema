@@ -1,8 +1,12 @@
 package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 
 import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
 public interface FilmeRepository extends CrudRepository<Filmes, String> {
+    long countByGenero(String genero);
+    List<Filmes> findByGenero(String genero);
+    List<Filmes> findByTituloContaining(String titulo);
     
     // Métodos de consulta personalizados podem ser definidos aqui
     // Exemplo: List<Filmes> findByTituloContaining(String titulo);

@@ -1,20 +1,38 @@
 package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/filmes")
 public class FilmesController {
     @Autowired
-    FilmeRepository filmeRepository;
+    private FilmesService service;
 
-    @GetMapping("/info") // Endpoint para listar todos os filmes
-    @ResponseBody // Endpoint para obter informações sobre o serviço
+    @GetMapping("/info") 
     public Iterable<Filmes> listarTodos() {
-        return filmeRepository.findAll();
+        return service.listarTodos();
+    }
+
+    @GetMapping("/contar")
+    public long contarPorGenero(String genero) {
+        return service.contarPorGenero(genero);
+    }
+
+    @GetMapping("/encontrar")
+    public Filmes encontrarFilme(String titulo) {
+        return service.encontrarFilme(titulo);
+    }
+
+    @PostMapping
+    public ResponseEntity<Filmes> salvarFilme(@RequestBody Filmes filme) {
+        service.salvarFilme(filme);
+        return ResponseEntity.status(HttpStatus.CREATED).body(filme);
     }
 }
