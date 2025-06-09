@@ -12,6 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/filmes")
 public class FilmesController {
+    private FilmesResponseDto converterParaResponseDTO(Filmes filme) {
+        Integer ano = (filme.getAnoLancamento() != null) ?
+                         Integer.parseInt(new java.text.SimpleDateFormat("yyyy").format(filme.getAnoLancamento())) : null;
+
+        return new FilmesResponseDto(
+            filme.getTitulo(),
+            filme.getGenero(),
+            filme.getDiretor(),
+            ano,
+            filme.getSinopse(),
+            filme.getAvaliacao()
+        );
+    }
+
     @Autowired
     private FilmesService service;
 
@@ -31,8 +45,11 @@ public class FilmesController {
     }
 
     @PostMapping
-    public ResponseEntity<Filmes> salvarFilme(@RequestBody Filmes filme) {
-        service.salvarFilme(filme);
-        return ResponseEntity.status(HttpStatus.CREATED).body(filme);
+    public ResponseEntity<FilmesResponseDto> salvarFilme(@RequestBody FilmesRequestDto filme) {
+        Filmes filmeSalvo = service.salvarFilme(filme);
+        
+        FilmesResponseDto responseDto = converterParaResponseDTO(filmeSalvo);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 }

@@ -31,4 +31,10 @@ public class PagesController {
         model.addAttribute("paginaAtual", "filmes");
         return "filmes";
     }
+
+    @GetMapping("/series")
+    public String series(Model model) {
+        model.addAttribute("paginaAtual", "series");
+        return "series";
+    }
 }

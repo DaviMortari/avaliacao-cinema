@@ -1,14 +1,14 @@
-package br.ufms.facom.progweb.avaliacao_filmes.filmes;
+package br.ufms.facom.progweb.avaliacao_filmes.series;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FilmesService {
+public class SeriesService {
     @Autowired
-    private FilmeRepository repository;
+    private SeriesRepository repository;
 
-    public Iterable<Filmes> listarTodos() {
+    public Iterable<Series> listarTodos() {
         return repository.findAll();
     }
 
@@ -16,19 +16,20 @@ public class FilmesService {
         return repository.countByGenero(genero);
     }
 
-    public Filmes encontrarFilme(String titulo){
+    public Series encontrarFilme(String titulo){
         return repository.findByTituloContaining(titulo).stream().findFirst().orElse(null);
     }
 
-    public Filmes salvarFilme(FilmesRequestDto dto) {
-        Filmes newFilme = new Filmes(
+    public Series salvarFilme(SeriesDto dto) {
+        Series newSerie = new Series(
             dto.getTitulo(),
             dto.getGenero(),
             dto.getDiretor(),
             dto.getAnoLancamento(),
-            dto.getSinopse()
+            dto.getSinopse(),
+            dto.getTemporadas()
         );
-        return repository.save(newFilme);
+        return repository.save(newSerie);
     }
     
     public void excluirFilme(String id) {
