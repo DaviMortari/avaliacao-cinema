@@ -1,20 +1,22 @@
 package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 
-public class FilmesRequestDto {
+public class FilmesDto {
     private String titulo;
     private String genero;
     private String diretor;
     private int anoLancamento;
     private String sinopse;
+    private int avaliacao;
 
-    public FilmesRequestDto() {}
+    public FilmesDto() {}
 
-    public FilmesRequestDto(String titulo, String genero, String diretor, int anoLancamento, String sinopse, int avaliacao) {
+    public FilmesDto(String titulo, String genero, String diretor, int anoLancamento, String sinopse, int avaliacao) {
         this.titulo = titulo;
         this.genero = genero;
         this.diretor = diretor;
         this.anoLancamento = anoLancamento;
         this.sinopse = sinopse;
+        this.avaliacao = avaliacao;
     }
 
     public String getTitulo() {
@@ -55,5 +57,13 @@ public class FilmesRequestDto {
 
     public void setSinopse(String sinopse) {
         this.sinopse = sinopse;
+    }
+
+    public int getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(int avaliacao) {
+        this.avaliacao = avaliacao;
     }
 }

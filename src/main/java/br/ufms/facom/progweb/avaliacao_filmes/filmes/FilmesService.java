@@ -20,7 +20,7 @@ public class FilmesService {
         return repository.findByTituloContaining(titulo).stream().findFirst().orElse(null);
     }
 
-    public Filmes salvarFilme(FilmesRequestDto dto) {
+    public void salvarFilme(FilmesDto dto) {
         Filmes newFilme = new Filmes(
             dto.getTitulo(),
             dto.getGenero(),
@@ -28,7 +28,7 @@ public class FilmesService {
             dto.getAnoLancamento(),
             dto.getSinopse()
         );
-        return repository.save(newFilme);
+        repository.save(newFilme);
     }
     
     public void excluirFilme(String id) {
