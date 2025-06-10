@@ -26,7 +26,8 @@ public class FilmesService {
             dto.getGenero(),
             dto.getDiretor(),
             dto.getAnoLancamento(),
-            dto.getSinopse()
+            dto.getSinopse(),
+            dto.getImagem()
         );
 
         if(repository.existsByTitulo(newFilme.getTitulo())) {

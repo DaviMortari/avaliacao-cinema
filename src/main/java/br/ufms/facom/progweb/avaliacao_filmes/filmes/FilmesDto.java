@@ -21,18 +21,21 @@ public class FilmesDto {
     @NotBlank(message = "A sinopse do filme não pode estar vazia.")
     private String sinopse;
 
-    
+    @NotBlank(message = "O link TMDB da imagem do filme não pode estar vazia.")
+    private String imagem;
+
     private int avaliacao;
 
     public FilmesDto() {}
 
-    public FilmesDto(String titulo, String genero, String diretor, int anoLancamento, String sinopse, int avaliacao) {
+    public FilmesDto(String titulo, String genero, String diretor, int anoLancamento, String sinopse, int avaliacao, String imagem) {
         this.titulo = titulo;
         this.genero = genero;
         this.diretor = diretor;
         this.anoLancamento = anoLancamento;
         this.sinopse = sinopse;
         this.avaliacao = avaliacao;
+        this.imagem = imagem;
     }
 
     public String getTitulo() {
@@ -81,5 +84,12 @@ public class FilmesDto {
 
     public void setAvaliacao(int avaliacao) {
         this.avaliacao = avaliacao;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }

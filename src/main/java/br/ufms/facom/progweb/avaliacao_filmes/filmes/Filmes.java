@@ -24,12 +24,14 @@ public class Filmes implements Serializable{
 
     public Filmes() {}
 
-    public Filmes(String titulo, String genero, String diretor, int anoLancamento, String sinopse) {
+    public Filmes(String titulo, String genero, String diretor, int anoLancamento, String sinopse, String imagem) {
         this.titulo = titulo;
         this.genero = genero;
         this.diretor = diretor;
         this.anoLancamento = java.sql.Date.valueOf(anoLancamento + "-01-01");
         this.sinopse = sinopse;
+        this.avaliacao = 0;
+        this.imagem = imagem;
     }
 
     public UUID getId() {

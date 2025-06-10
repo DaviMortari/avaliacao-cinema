@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Adapte esta parte para corresponder exatamente à estrutura do seu card
                 // e aos dados que vêm da sua API (movie.titulo, movie.urlPoster, etc.)
                 movieCardElement.innerHTML = `
-                    <img src="${movie.urlPoster || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD4JItKF96N-zMY_y_JCL2JD_P2cmGdDOJ5g&s'}" alt="Pôster de ${movie.titulo}">
+                    <img src="${movie.imagem || '/img/placeholder_poster.jpg'}" alt="Pôster de ${movie.titulo}">
                     <div class="movie-card-item-info">
                         <h3>${movie.titulo}</h3>
                         <p class="genero">${movie.genero || 'Gênero não informado'}</p>
