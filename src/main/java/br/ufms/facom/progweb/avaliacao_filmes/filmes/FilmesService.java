@@ -28,6 +28,11 @@ public class FilmesService {
             dto.getAnoLancamento(),
             dto.getSinopse()
         );
+
+        if(repository.existsByTitulo(newFilme.getTitulo())) {
+            throw new IllegalArgumentException("Filme com título '" + newFilme.getTitulo() + "' já existe.");
+        }
+
         repository.save(newFilme);
     }
     

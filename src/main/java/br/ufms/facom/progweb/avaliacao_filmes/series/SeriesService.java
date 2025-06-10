@@ -16,11 +16,11 @@ public class SeriesService {
         return repository.countByGenero(genero);
     }
 
-    public Series encontrarFilme(String titulo){
+    public Series encontrarSerie(String titulo){
         return repository.findByTituloContaining(titulo).stream().findFirst().orElse(null);
     }
 
-    public Series salvarFilme(SeriesDto dto) {
+    public Series salvarSerie(SeriesDto dto) {
         Series newSerie = new Series(
             dto.getTitulo(),
             dto.getGenero(),
@@ -29,10 +29,15 @@ public class SeriesService {
             dto.getSinopse(),
             dto.getTemporadas()
         );
+
+        if(repository.existsByTitulo(newSerie.getTitulo())) {
+            throw new IllegalArgumentException("Série com título '" + newSerie.getTitulo() + "' já existe.");
+        }
+
         return repository.save(newSerie);
     }
     
-    public void excluirFilme(String id) {
+    public void excluirSerie(String id) {
         repository.deleteById(id);
     }
 }

@@ -3,6 +3,7 @@ package br.ufms.facom.progweb.avaliacao_filmes.series;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,13 +29,23 @@ public class SeriesController {
 
     @GetMapping("/encontrar")
     public Series encontrarFilme(String titulo) {
-        return service.encontrarFilme(titulo);
+        return service.encontrarSerie(titulo);
     }
 
     @PostMapping
     public ResponseEntity<SeriesDto> salvarFilme(@RequestBody SeriesDto serie) {
-        service.salvarFilme(serie);
+        service.salvarSerie(serie);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(serie);
+    }
+
+    @DeleteMapping("/excluir/{id}")
+    public ResponseEntity<?> excluirSerie(String id) {
+        var serie = service.encontrarSerie(id);
+        if (serie != null) {
+            this.service.excluirSerie(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

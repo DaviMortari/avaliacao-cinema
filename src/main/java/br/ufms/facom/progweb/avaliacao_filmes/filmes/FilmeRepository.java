@@ -7,6 +7,7 @@ public interface FilmeRepository extends CrudRepository<Filmes, String> {
     long countByGenero(String genero);
     List<Filmes> findByGenero(String genero);
     List<Filmes> findByTituloContaining(String titulo);
+    boolean existsByTitulo(String titulo);
     
     // Métodos de consulta personalizados podem ser definidos aqui
     // Exemplo: List<Filmes> findByTituloContaining(String titulo);

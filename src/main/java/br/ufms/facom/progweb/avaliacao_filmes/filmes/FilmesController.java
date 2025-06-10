@@ -3,6 +3,7 @@ package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,5 +37,15 @@ public class FilmesController {
         service.salvarFilme(filme);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(filme);
+    }
+
+    @DeleteMapping("/excluir/{id}")
+    public ResponseEntity<?> excluirFilme(String id) {
+        var filme = service.encontrarFilme(id);
+        if (filme != null) {
+            this.service.excluirFilme(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
