@@ -1,11 +1,27 @@
 package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class FilmesDto {
+    @NotBlank(message = "O título do filme não pode estar vazio.")
     private String titulo;
+
+    @NotBlank(message = "O gênero do filme não pode estar vazio.")
     private String genero;
+
+    @NotBlank(message = "O diretor do filme não pode estar vazio.")
     private String diretor;
+
+    @NotNull
+    @Positive(message = "O ano de lançamento deve ser um número positivo.")
     private int anoLancamento;
+
+    @NotBlank(message = "A sinopse do filme não pode estar vazia.")
     private String sinopse;
+
+    
     private int avaliacao;
 
     public FilmesDto() {}

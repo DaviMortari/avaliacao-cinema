@@ -1,11 +1,28 @@
 package br.ufms.facom.progweb.avaliacao_filmes.series;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class SeriesDto {
+    @NotBlank(message = "O título da série não pode estar vazio.")
     private String titulo;
+
+    @NotBlank(message = "O gênero da série não pode estar vazio.")
     private String genero;
+
+    @NotBlank(message = "O diretor da série não pode estar vazio.")
     private String diretor;
+
+    @NotNull
+    @Positive(message = "O ano de lançamento deve ser um número positivo.")
     private int anoLancamento;
+
+    @NotBlank(message = "A sinopse da série não pode estar vazia.")
     private String sinopse;
+
+    @NotNull
+    @Positive(message = "O número de temporadas deve ser um número positivo.")
     private int temporadas;
 
     public SeriesDto() {}
