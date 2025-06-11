@@ -2,7 +2,6 @@ package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,8 +11,8 @@ import jakarta.persistence.Id;
 @Entity
 public class Filmes implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String titulo;
     private String genero;
     private String diretor;
@@ -34,11 +33,8 @@ public class Filmes implements Serializable{
         this.imagem = imagem;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
-    }
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getTitulo() {

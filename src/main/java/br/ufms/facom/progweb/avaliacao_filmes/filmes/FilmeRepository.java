@@ -3,7 +3,8 @@ package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
-public interface FilmeRepository extends CrudRepository<Filmes, String> {
+public interface FilmeRepository extends CrudRepository<Filmes, Long> {
+    Filmes findById(long id);
     long countByGenero(String genero);
     List<Filmes> findByGenero(String genero);
     List<Filmes> findByTituloContaining(String titulo);

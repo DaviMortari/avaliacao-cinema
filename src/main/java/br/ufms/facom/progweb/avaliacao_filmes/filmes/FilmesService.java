@@ -20,6 +20,10 @@ public class FilmesService {
         return repository.findByTituloContaining(titulo).stream().findFirst().orElse(null);
     }
 
+    public Filmes encontrarFilmePorId(long id) {
+        return repository.findById(id);
+    }
+
     public void salvarFilme(FilmesDto dto) {
         Filmes newFilme = new Filmes(
             dto.getTitulo(),
@@ -37,7 +41,7 @@ public class FilmesService {
         repository.save(newFilme);
     }
     
-    public void excluirFilme(String id) {
+    public void excluirFilme(long id) {
         repository.deleteById(id);
     }
 }

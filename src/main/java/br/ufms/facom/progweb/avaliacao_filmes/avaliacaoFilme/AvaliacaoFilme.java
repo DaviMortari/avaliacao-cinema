@@ -1,0 +1,90 @@
+package br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import br.ufms.facom.progweb.avaliacao_filmes.filmes.Filmes;
+import br.ufms.facom.progweb.avaliacao_filmes.usuarios.Usuarios;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class AvaliacaoFilme implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false)
+    private double nota;
+
+    @Column(columnDefinition = "TEXT")
+    private String comentario;
+
+    @Column(name = "data_criacao", nullable = false, updatable = false)
+    private LocalDateTime dataCriacao;
+
+    @ManyToOne
+    @JoinColumn(name = "filme_id", nullable = false)
+    private Filmes filme;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuarios usuario;
+
+    public AvaliacaoFilme(double nota, String comentario, LocalDateTime data, Filmes filme, Usuarios usuario) {
+        this.nota = nota;
+        this.comentario = comentario;
+        this.dataCriacao = data;
+        this.filme = filme;
+        this.usuario = usuario;
+    }
+
+    public AvaliacaoFilme() {}
+
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public double getNota() {
+        return nota;
+    }
+    public void setNota(double nota) {
+        this.nota = nota;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public Filmes getFilme() {
+        return filme;
+    }
+    public void setFilme(Filmes filme) {
+        this.filme = filme;
+    }
+
+    public Usuarios getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
+    }
+}

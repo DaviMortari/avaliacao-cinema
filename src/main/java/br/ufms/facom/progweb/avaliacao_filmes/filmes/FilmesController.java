@@ -40,8 +40,8 @@ public class FilmesController {
     }
 
     @DeleteMapping("/excluir/{id}")
-    public ResponseEntity<?> excluirFilme(String id) {
-        var filme = service.encontrarFilme(id);
+    public ResponseEntity<?> excluirFilme(long id) {
+        var filme = service.encontrarFilmePorId(id);
         if (filme != null) {
             this.service.excluirFilme(id);
             return ResponseEntity.ok().build();
