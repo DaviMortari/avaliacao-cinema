@@ -36,10 +36,14 @@ public class SecurityConfig {
                     // Exemplo mais realista para começar:
                     /*.requestMatchers(
                             "/pages/criarConta",
-                            "pages/home",
+                            "/pages/home",
                             "/usuarios/salvar", // Seu endpoint de salvar usuário
                             "/pages/entrar",    // Sua página de login
-                            "/perform_login",   // Endpoint de processamento de login do Spring Security
+                            "/perform_login",
+                            "/pages/filmes",
+                            "/pages/series",
+                            "/pages/sobre",
+                            "/filmes/info",   // Endpoint de processamento de login do Spring Security
                             "/css/**",          // Seus arquivos CSS
                             "/js/**",           // Seus arquivos JS
                             "/img/**",          // Suas imagens

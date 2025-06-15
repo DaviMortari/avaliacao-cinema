@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="rating">
                             <i class="fas fa-star"></i> ${movie.avaliacao ? movie.avaliacao.toFixed(1) : 'N/A'}
                         </div>
-                        <a href="/filmes/${movie.id}" class="btn-ver-detalhes">Ver Detalhes</a>
+                        <a href="/filmes/${movie.id}" class="btn-ver-detalhes">Avaliar</a>
                     </div>
                 `;
                 // Ponto E: Adiciona o card criado DENTRO do <div class="grid-filmes">

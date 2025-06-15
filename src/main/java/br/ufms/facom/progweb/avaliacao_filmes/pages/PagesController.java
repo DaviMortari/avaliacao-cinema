@@ -37,4 +37,10 @@ public class PagesController {
         model.addAttribute("paginaAtual", "series");
         return "series";
     }
+
+    @GetMapping("/avaliacao")
+    public String avaliacao(Model model) {
+        model.addAttribute("paginaAtual", "avaliacao");
+        return "avaliacao";
+    }
 }

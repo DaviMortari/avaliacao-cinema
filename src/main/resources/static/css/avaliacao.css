@@ -1,0 +1,315 @@
+/* detalhesItem.css */
+
+/* Container principal da página de detalhes */
+.detalhes-container {
+    padding-top: 100px; /* Ajuste para o header fixo */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+/* Seção de Header do Item (Poster e Informações Principais) */
+.item-detalhes-header {
+    display: flex;
+    gap: 30px;
+    padding: 30px 20px;
+    background-color: #1f1f1f; /* Um pouco mais claro que o dark-color para destaque */
+    border-radius: 10px;
+    margin-bottom: 40px;
+    align-items: flex-start; /* Alinha itens no topo */
+}
+
+.item-poster img {
+    width: 300px; /* Largura fixa para o poster */
+    height: auto;
+    max-height: 450px; /* Altura máxima */
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.item-info-principal {
+    flex: 1; /* Ocupa o espaço restante */
+}
+
+.item-info-principal h1 {
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.info-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 10px; /* Espaçamento entre os itens meta */
+    font-size: 0.95rem;
+    color: var(--gray-color);
+    margin-bottom: 15px;
+}
+
+.info-meta .separador {
+    color: var(--gray-color);
+}
+
+.rating-geral {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rating-geral .fa-star {
+    color: gold;
+    font-size: 1.5rem;
+}
+
+.rating-geral span:last-child {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+}
+
+.sinopse {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: var(--light-color);
+}
+
+.info-adicional p {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--gray-color);
+}
+
+.info-adicional strong {
+    color: var(--light-color);
+}
+
+/* Título de seção específico para esta página */
+.section-title-detalhes {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+    color: var(--light-color);
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+/* Seção de Avaliar Item (Formulário) */
+.avaliar-item {
+    padding: 30px 20px;
+    background-color: #181818; /* Um pouco diferente para separar visualmente */
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.form-avaliacao .form-group {
+    margin-bottom: 20px;
+}
+
+.form-avaliacao label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--light-color);
+}
+
+.form-avaliacao textarea,
+.form-avaliacao input[type="number"] /* Se fosse usar input number para nota */ {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background-color: #222;
+    color: var(--light-color);
+    font-size: 1rem;
+}
+
+.form-avaliacao textarea:focus,
+.form-avaliacao input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(229, 9, 20, 0.3);
+}
+
+.btn-avaliar {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+}
+
+.login-prompt {
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 20px;
+}
+.login-prompt a {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+.login-prompt a:hover {
+    text-decoration: underline;
+}
+
+
+/* Estrelas para Input de Nota */
+.estrelas-input {
+    display: inline-block;
+    direction: rtl; /* Faz as estrelas preencherem da direita para a esquerda ao passar o mouse */
+    font-size: 0; /* Remove espaço entre os labels */
+}
+
+.estrelas-input input[type="radio"] {
+    display: none; /* Esconde os radio buttons reais */
+}
+
+.estrelas-input label {
+    font-size: 2rem; /* Tamanho das estrelas */
+    color: var(--gray-color);
+    cursor: pointer;
+    padding: 0 2px; /* Pequeno espaçamento entre estrelas */
+    transition: color 0.2s ease;
+    display: inline-block; /* Para que o direction rtl funcione corretamente */
+    margin-bottom: 0; /* Sobrescreve o margin-bottom do label geral do form */
+}
+
+.estrelas-input label:before {
+    content: "\f005"; /* Código do ícone de estrela cheia do FontAwesome */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900; /* Para estrela cheia */
+}
+.estrelas-input label.half:before {
+    content: "\f089"; /* Código do ícone de estrela meio cheia do FontAwesome */
+}
+
+
+/* Lógica de hover e seleção para estrelas */
+.estrelas-input input[type="radio"]:checked ~ label, /* Estrelas selecionadas e as à sua "direita" (esquerda visualmente) */
+.estrelas-input label:hover, /* Estrela sob o mouse */
+.estrelas-input label:hover ~ label /* Estrelas à "direita" da estrela sob o mouse */ {
+    color: gold;
+}
+
+
+/* Seção de Lista de Avaliações */
+.lista-avaliacoes {
+    padding: 0 20px; /* Apenas padding lateral, o título já tem margem */
+}
+
+.avaliacoes-grid {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: 1fr; /* Uma coluna por padrão */
+}
+
+.avaliacao-card {
+    background-color: #1c1c1c;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.avaliacao-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.avatar-usuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avaliacao-usuario-info {
+    flex-grow: 1;
+}
+
+.avaliacao-usuario-info h4 {
+    font-size: 1.1rem;
+    color: var(--light-color);
+    margin-bottom: 3px;
+}
+
+.data-avaliacao {
+    font-size: 0.8rem;
+    color: var(--gray-color);
+}
+
+.avaliacao-nota {
+    font-size: 1.1rem;
+    color: gold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.avaliacao-nota .fa-star {
+    font-size: 1.2rem;
+}
+
+.avaliacao-comentario {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #ccc; /* Um pouco mais claro que o texto geral para comentários */
+}
+
+/* Responsividade para a página de detalhes */
+@media (max-width: 768px) {
+    .detalhes-container {
+        padding-top: 150px; /* Mais espaço por causa do header que pode quebrar em 2 linhas */
+    }
+
+    .item-detalhes-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .item-poster img {
+        width: 80%;
+        max-width: 250px; /* Limita o tamanho do poster em telas menores */
+        margin-bottom: 20px;
+    }
+
+    .item-info-principal h1 {
+        font-size: 2.2rem;
+    }
+
+    .info-meta {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .item-info-principal h1 {
+        font-size: 1.8rem;
+    }
+    .rating-geral {
+        font-size: 1rem;
+    }
+    .rating-geral .fa-star {
+        font-size: 1.2rem;
+    }
+    .sinopse {
+        font-size: 0.9rem;
+    }
+    .section-title-detalhes {
+        font-size: 1.5rem;
+    }
+    .estrelas-input label {
+        font-size: 1.5rem; /* Diminui um pouco as estrelas */
+    }
+}
+
+/* Ajustes no header para usuário logado */
+header.logged-in .auth-buttons {
+    align-items: center;
+}
+.welcome-user {
+    color: var(--light-color);
+    margin-right: 15px;
+    font-size: 0.9rem;
+}
