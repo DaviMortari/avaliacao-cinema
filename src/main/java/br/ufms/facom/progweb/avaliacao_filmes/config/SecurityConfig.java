@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 //import static org.springframework.security.config.Customizer.withDefaults; // Para httpBasic
 
 @Configuration
@@ -22,12 +23,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // ATENÇÃO: Esta é uma configuração de segurança MÍNIMA e bastante PERMISSIVA
-        // para você conseguir rodar a aplicação inicialmente.
-        // VOCÊ PRECISARÁ AJUSTAR ISSO CUIDADOSAMENTE para as necessidades da sua aplicação.
 
         http
-            .csrf(csrf -> csrf.disable()) // Desabilitar CSRF para simplificar testes iniciais (RECONSIDERE para produção)
+            .csrf(csrf -> csrf.ignoringRequestMatchers(toH2Console()))
+            .headers(headers -> headers
+                .frameOptions(frameOptions -> frameOptions.sameOrigin())) 
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
                     // PERMITIR TUDO INICIALMENTE PARA TESTE - MUITO INSEGURO PARA PRODUÇÃO

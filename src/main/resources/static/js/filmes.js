@@ -1,6 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Ponto A: Este bloco de código SÓ RODA quando o HTML inteiro já foi carregado.
 
     const moviesGridContainer = document.querySelector('.grid-filmes'); 
     // Ponto B: Aqui ele encontra o seu <div class="grid-filmes"></div> no HTML.
@@ -14,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function fetchAndDisplayMovies() {
         try {
-            const response = await fetch('/filmes/info'); // Ponto C: Busca os dados da sua API
+            const response = await fetch('/api/filmes/listar'); // Ponto C: Busca os dados da sua API
             // ... (lógica para tratar a resposta e os erros) ...
             const moviesData = await response.json();
 
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="rating">
                             <i class="fas fa-star"></i> ${movie.avaliacao ? movie.avaliacao.toFixed(1) : 'N/A'}
                         </div>
-                        <a href="/filmes/${movie.id}" class="btn-ver-detalhes">Avaliar</a>
+                        <a href="/pages/filmes/${movie.id}" class="btn-ver-detalhes">Avaliar</a>
                     </div>
                 `;
                 // Ponto E: Adiciona o card criado DENTRO do <div class="grid-filmes">

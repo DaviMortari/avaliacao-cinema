@@ -4,17 +4,27 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.Filmes;
+import br.ufms.facom.progweb.avaliacao_filmes.series.Series;
 import br.ufms.facom.progweb.avaliacao_filmes.usuarios.Usuarios;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 
 @Entity
-public class AvaliacaoFilme implements Serializable{
+public class Avaliacao implements Serializable{
+    public enum TipoItemAvaliado {
+        FILME,
+        SERIE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -28,23 +38,53 @@ public class AvaliacaoFilme implements Serializable{
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
-    @ManyToOne
-    @JoinColumn(name = "filme_id", nullable = false)
+    @Column(name = "tipo_item_avaliado", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TipoItemAvaliado tipoItemAvaliado;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "filme_id", nullable = true)
     private Filmes filme;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "serie_id", nullable = true)
+    private Series serie;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuarios usuario;
 
-    public AvaliacaoFilme(double nota, String comentario, LocalDateTime data, Filmes filme, Usuarios usuario) {
+    // construtor para avaliação de filme
+    public Avaliacao(double nota, String comentario, LocalDateTime data, Filmes filme, Usuarios usuario) {
         this.nota = nota;
         this.comentario = comentario;
-        this.dataCriacao = data;
         this.filme = filme;
         this.usuario = usuario;
+        this.tipoItemAvaliado = TipoItemAvaliado.FILME; // Define o tipo como FILME
     }
 
-    public AvaliacaoFilme() {}
+    // construtor para avaliação de série
+    public Avaliacao(double nota, String comentario, LocalDateTime data, Series serie, Usuarios usuario) {
+        this.nota = nota;
+        this.comentario = comentario;
+        this.serie = serie;
+        this.usuario = usuario;
+        this.tipoItemAvaliado = TipoItemAvaliado.SERIE; // Define o tipo como SERIE
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataCriacao = LocalDateTime.now();
+        // Validação para garantir consistência
+        if (this.tipoItemAvaliado == TipoItemAvaliado.FILME && (this.filme == null || this.serie != null)) {
+            throw new IllegalStateException("Avaliação de FILME deve ter 'filme' preenchido e 'serie' nulo.");
+        }
+        if (this.tipoItemAvaliado == TipoItemAvaliado.SERIE && (this.serie == null || this.filme != null)) {
+            throw new IllegalStateException("Avaliação de SERIE deve ter 'serie' preenchido e 'filme' nulo.");
+        }
+    }
+
+    public Avaliacao() {}
 
     public long getId() {
         return id;

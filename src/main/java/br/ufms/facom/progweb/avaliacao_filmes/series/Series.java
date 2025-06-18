@@ -2,26 +2,47 @@ package br.ufms.facom.progweb.avaliacao_filmes.series;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.UUID;
+import java.util.List;
 
+import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.Avaliacao;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Series implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column
     private String titulo;
+
+    @Column
     private String genero;
+
+    @Column
     private String diretor;
+
+    @Column
     private Date anoLancamento;
+
+    @Column
     private String sinopse;
-    private int avaliacao;
+
+    @OneToMany
+    private List<Avaliacao> avaliacao;
+
+    @Column
     int temporadas;
+
+    @Column
     private String imagem;
+
+    private String tipo;;
 
     public Series() {}
 
@@ -32,14 +53,14 @@ public class Series implements Serializable{
         this.anoLancamento = java.sql.Date.valueOf(anoLancamento + "-01-01");
         this.sinopse = sinopse;
         this.temporadas = temporadas;
-        this.avaliacao = 0;
-        this.imagem = ""; 
+        this.imagem = "";
+        this.tipo = "SERIE"; 
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -79,12 +100,12 @@ public class Series implements Serializable{
         this.sinopse = sinopse;
     }
 
-    public int getAvaliacao() {
+    public List<Avaliacao> getAvaliacao() {
         return avaliacao;
     }
-    public void setAvaliacao(int avaliacao) {
-        this.avaliacao = avaliacao;
-    }
+    //public void setAvaliacao(int avaliacao) {
+    //    this.avaliacao = avaliacao;
+    //}
     public String getImagem() {
         return imagem;
     }
@@ -92,4 +113,7 @@ public class Series implements Serializable{
         this.imagem = imagem;
     }
     
+    public String getTipo() {
+        return tipo;
+    }
 }

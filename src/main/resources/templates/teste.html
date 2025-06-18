@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- O título será dinâmico, ex: "Detalhes de O Auto da Compadecida" -->
+    <title th:text="|Detalhes de ${item.titulo} - CineAvalia|">CineAvalia - Detalhes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link para o CSS geral (cinema.css) e o específico (detalhesItem.css) -->
+    <link rel="stylesheet" th:href="@{/css/cinema.css}">
+    <link rel="stylesheet" th:href="@{/css/detalhesItem.css}">
+</head>
+<body>
+    <header id="header">
+        <div class="logo">Cine<span>Avalia</span></div>
+        <nav>
+            <ul>
+                <li><a href="/pages/home" th:classappend="${paginaAtual == 'home'} ? 'active' : ''">Home</a></li>
+                <li><a href="/pages/filmes">Filmes</a></li>
+                <li><a th:href="@{/pages/series}" th:classappend="${paginaAtual == 'series'} ? 'active' : ''">Series</a></li>
+                <li><a href="#">Sobre Nós</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a th:href="@{/pages/entrar}" class="btn btn-outline">Entrar</a>
+            <a th:href="@{/pages/criarConta}" class="btn btn-primary">Criar Conta</a>
+        </div>
+    </header>
+
+    <main class="detalhes-container">
+        <!-- Seção de Detalhes do Item (Filme/Série) -->
+        <section class="item-detalhes-header">
+            <div class="item-poster">
+                <!-- Imagem do Poster (Exemplo com Thymeleaf) -->
+                <img th:src="${item.imagem != null ? item.imagem : '/img/placeholder_poster.png'}" th:alt="${item.titulo}" />
+            </div>
+            <div class="item-info-principal">
+                <h1 th:text="${item.titulo}">Nome do Filme/Série</h1>
+                <div class="info-meta">
+                    <span class="ano-lancamento" th:text="${#dates.format(item.anoLancamento, 'yyyy')}">2025</span>
+                    <span class="separador">|</span>
+                    <span class="genero" th:text="${item.genero}">Ação, Aventura</span>
+                    <span class="separador">|</span>
+                    <!-- Específico para séries -->
+                    <th:block th:if="${item.tipo == 'SERIE'}">
+                        <span class="separador">|</span>
+                        <!-- O acesso a 'item.temporadas' agora é seguro, pois o 'th:if' garante que ele existe -->
+                        <span class="temporadas" th:text="|${item.temporadas} Temporada(s)|">3 Temporadas</span>
+                    </th:block>
+                </div>
+                <div class="rating-geral">
+                    <i class="fas fa-star"></i>
+                    <span th:text="${#numbers.formatDecimal(item.mediaAvaliacoes, 1, 1, 'COMMA')} ?: 'N/A'">4.5</span>
+                </div>
+                <p class="sinopse" th:text="${item.sinopse}">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+                <div class="info-adicional">
+                    <p><strong>Diretor:</strong> <span th:text="${item.diretor} ?: 'Não informado'">Nome do Diretor</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="avaliar-item">
+            <h2 class="section-title-detalhes">Deixe sua Avaliação</h2>
+            <form th:action="@{/avaliacoes}" th:object="${avaliacao}" method="post" class="avaliacao-form">
+                <!-- Campos ocultos para IDs -->
+                <input type="hidden" name="filmeId" th:value="${item.id}" />
+                <input type="hidden" name="tipoItem" th:value="${item.tipo}" /> <!-- FILME ou SERIE -->
+                <!-- O ID do usuário logado seria pego no backend -->
+                <div class="form-group">
+                    <label for="nota">Sua Nota (0.5 a 5.0):</label>
+                    <div class="estrelas-input">
+                        <!-- Input de estrelas (pode ser melhorado com JS) -->
+                        <input type="radio" id="star5" name="nota" value="5.0" /><label for="star5" title="5 estrelas"></label>
+                        <input type="radio" id="star4.5" name="nota" value="4.5" /><label for="star4.5" title="4.5 estrelas" class="half"></label>
+                        <input type="radio" id="star4" name="nota" value="4.0" /><label for="star4" title="4 estrelas"></label>
+                        <input type="radio" id="star3.5" name="nota" value="3.5" /><label for="star3.5" title="3.5 estrelas" class="half"></label>
+                        <input type="radio" id="star3" name="nota" value="3.0" /><label for="star3" title="3 estrelas"></label>
+                        <input type="radio" id="star2.5" name="nota" value="2.5" /><label for="star2.5" title="2.5 estrelas" class="half"></label>
+                        <input type="radio" id="star2" name="nota" value="2.0" /><label for="star2" title="2 estrelas"></label>
+                        <input type="radio" id="star1.5" name="nota" value="1.5" /><label for="star1.5" title="1.5 estrelas" class="half"></label>
+                        <input type="radio" id="star1" name="nota" value="1.0" /><label for="star1" title="1 estrela"></label>
+                        <input type="radio" id="star0.5" name="nota" value="0.5" /><label for="star0.5" title="0.5 estrelas" class="half"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="comentario">Seu Comentário:</label>
+                    <textarea id="comentario" th:field="*{comentario}" rows="4" placeholder="O que você achou do filme?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-avaliar">Enviar Avaliação</button>
+            </form>
+        </section>
+
+        <section class="lista-avaliacoes">
+            <h2 class="section-title-detalhes">Avaliações da Comunidade
+                <span th:if="${#lists.isEmpty(item.avaliacoes)}">(Nenhuma avaliação ainda)</span>
+            </h2>
+            
+        </section>
+    </main>
+</body>
+</html>

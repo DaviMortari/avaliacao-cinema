@@ -11,10 +11,10 @@ import br.ufms.facom.progweb.avaliacao_filmes.usuarios.Usuarios;
 import br.ufms.facom.progweb.avaliacao_filmes.usuarios.UsuariosRepository;
 
 @Service
-public class AvaliacaoFilmeService {
+public class AvaliacaoService {
 
     @Autowired
-    private AvaliacaoFilmeRepository repository;
+    private AvaliacaoRepository repository;
 
     @Autowired
     private FilmeRepository filmeRepository;
@@ -23,23 +23,23 @@ public class AvaliacaoFilmeService {
     private UsuariosRepository usuariosRepository;
 
     // Services
-    public Iterable<AvaliacaoFilme> listarTodasAvaliacoes() {
+    public Iterable<Avaliacao> listarTodasAvaliacoes() {
         return repository.findAll(); // retorna todas as avaliações (sem parametro)
     }
 
-    public Iterable<AvaliacaoFilme> listarAvaliacoesPorFilme(long filmeId) {
+    public Iterable<Avaliacao> listarAvaliacoesPorFilme(long filmeId) {
         return repository.findAllByFilmeId(filmeId); // retorna avaliações de um filme específico
     }
 
-    public AvaliacaoFilme encontrarAvaliacaoPorId(long id) {
-        AvaliacaoFilme avaliacao = repository.findById(id);
+    public Avaliacao encontrarAvaliacaoPorId(long id) {
+        Avaliacao avaliacao = repository.findById(id);
         if (avaliacao == null) {
             throw new RuntimeException("Avaliação não encontrada com o ID: " + id);
         }
         return avaliacao;
     }
 
-    public void salvarAvaliacao(AvaliacaoFilmeDto dto) {
+    public void salvarAvaliacao(AvaliacaoDto dto) {
         Filmes filme = filmeRepository.findById(dto.getFilmeId());
         if (filme == null) {
             throw new IllegalArgumentException("Filme não encontrado com o ID: " + dto.getFilmeId());
@@ -50,8 +50,8 @@ public class AvaliacaoFilmeService {
             throw new IllegalArgumentException("Usuário não encontrado com o ID: " + dto.getUsuarioId());
         }
 
-        AvaliacaoFilme novaAvaliacao = new AvaliacaoFilme(
-            dto.getAvaliacao(),
+        Avaliacao novaAvaliacao = new Avaliacao(
+            dto.getNota(),
             dto.getComentario(),
             LocalDateTime.now(),
             filme,

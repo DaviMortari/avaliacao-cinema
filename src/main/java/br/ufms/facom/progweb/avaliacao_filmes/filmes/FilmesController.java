@@ -1,5 +1,7 @@
 package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/filmes")
+@RequestMapping("/api/filmes")
 public class FilmesController {
 
     @Autowired
     private FilmesService service;
 
-    @GetMapping("/info") 
-    public Iterable<Filmes> listarTodos() {
-        return service.listarTodos();
+
+    @GetMapping("/listar")
+    public List<FilmesCardDto> listarTodos() {
+        return service.buscarTodosOsFilmes();
     }
+    //@GetMapping("/info") 
+    //public Iterable<Filmes> listarTodos() {
+    //    return service.listarTodos();
+    //}
 
     @GetMapping("/contar")
     public long contarPorGenero(String genero) {

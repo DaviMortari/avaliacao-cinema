@@ -2,24 +2,45 @@ package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.Avaliacao;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Filmes implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+    @Column
     private String titulo;
+
+    @Column
     private String genero;
+
+    @Column
     private String diretor;
+
+    @Column
     private Date anoLancamento;
+
+    @Column
     private String sinopse;
-    private int avaliacao;
+
+    @OneToMany
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
+
+    @Column
     private String imagem;
+
+    private String tipo;
 
     public Filmes() {}
 
@@ -29,11 +50,11 @@ public class Filmes implements Serializable{
         this.diretor = diretor;
         this.anoLancamento = java.sql.Date.valueOf(anoLancamento + "-01-01");
         this.sinopse = sinopse;
-        this.avaliacao = 0;
         this.imagem = imagem;
+        this.tipo = "filme";
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -73,17 +94,21 @@ public class Filmes implements Serializable{
         this.sinopse = sinopse;
     }
 
-    public int getAvaliacao() {
-        return avaliacao;
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
     }
-    public void setAvaliacao(int avaliacao) {
-        this.avaliacao = avaliacao;
-    }
+    //public void setAvaliacao(Avaliacao avaliacoes) {
+    //    this.avaliacoes = avaliacoes;
+    //}
     public String getImagem() {
         return imagem;
     }
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
     
 }

@@ -16,9 +16,9 @@
         <div class="logo">Cine<span>Avalia</span></div>
         <nav>
             <ul>
-                <li><a th:href="@{/pages/home}">Home</a></li>
-                <li><a th:href="@{/pages/filmes}">Filmes</a></li>
-                <li><a th:href="@{/pages/series}">Séries</a></li>
+                <li><a href="/pages/home" th:classappend="${paginaAtual == 'home'} ? 'active' : ''">Home</a></li>
+                <li><a href="/pages/filmes">Filmes</a></li>
+                <li><a th:href="@{/pages/series}" th:classappend="${paginaAtual == 'series'} ? 'active' : ''">Series</a></li>
                 <li><a href="#">Sobre Nós</a></li>
             </ul>
         </nav>
@@ -40,18 +40,17 @@
         <section class="item-detalhes-header">
             <div class="item-poster">
                 <!-- Imagem do Poster (Exemplo com Thymeleaf) -->
-                <img th:src="${item.urlCapa != null ? item.urlCapa : '/img/placeholder_poster.png'}" th:alt="${item.titulo}" />
+                <img th:src="${item.imagem != null ? item.imagem : '/img/placeholder_poster.png'}" th:alt="${item.titulo}" />
             </div>
             <div class="item-info-principal">
                 <h1 th:text="${item.titulo}">Nome do Filme/Série</h1>
                 <div class="info-meta">
-                    <span class="ano-lancamento" th:text="${item.anoLancamento}">2023</span>
+                    <span class="ano-lancamento" th:text="${#dates.format(item.anoLancamento, 'yyyy')}">2025</span>
                     <span class="separador">|</span>
                     <span class="genero" th:text="${item.genero}">Ação, Aventura</span>
                     <span class="separador">|</span>
-                    <span class="duracao" th:text="${item.duracaoMinutos != null ? item.duracaoMinutos + ' min' : ''}">120 min</span>
                     <!-- Específico para séries -->
-                    <th:block th:if="${item.tipo == 'SERIE'}">
+                    <th:block th:if="${!#lists.isEmpty(item.avaliacoes) and item.avaliacoes[0].tipoAvaliado.name() == 'SERIE'}">
                         <span class="separador">|</span>
                         <span class="temporadas" th:text="${item.temporadas} + ' Temporada(s)'">3 Temporadas</span>
                     </th:block>
@@ -67,7 +66,6 @@
                 </p>
                 <div class="info-adicional">
                     <p><strong>Diretor:</strong> <span th:text="${item.diretor} ?: 'Não informado'">Nome do Diretor</span></p>
-                    <p><strong>Elenco:</strong> <span th:text="${item.elenco} ?: 'Não informado'">Ator 1, Atriz 2, Ator 3</span></p>
                 </div>
             </div>
         </section>
@@ -76,9 +74,9 @@
         <th:block th:if="${#authentication.principal != 'anonymousUser'}">
             <section class="avaliar-item">
                 <h2 class="section-title-detalhes">Deixe sua Avaliação</h2>
-                <form th:action="@{/avaliacoes/salvar}" method="post" class="form-avaliacao">
+                <form th:action="@{/avaliacoes}" th:object="${avaliacao}" method="post" class="avaliacao-form">
                     <!-- Campos ocultos para IDs -->
-                    <input type="hidden" name="itemId" th:value="${item.id}" />
+                    <input type="hidden" name="filmeId" th:value="${item.id}" />
                     <input type="hidden" name="tipoItem" th:value="${item.tipo}" /> <!-- FILME ou SERIE -->
                     <!-- O ID do usuário logado seria pego no backend -->
 
@@ -100,7 +98,7 @@
                     </div>
                     <div class="form-group">
                         <label for="comentario">Seu Comentário:</label>
-                        <textarea id="comentario" name="comentario" rows="5" placeholder="Escreva sua opinião sobre o filme/série..."></textarea>
+                        <textarea id="comentario" th:field="*{comentario}" rows="4" placeholder="O que você achou do filme?"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-avaliar">Enviar Avaliação</button>
                 </form>
@@ -116,12 +114,12 @@
         </th:block>
 
         <!-- Seção de Lista de Avaliações -->
-        <section class="lista-avaliacoes">
+        <!-- <section class="lista-avaliacoes">
             <h2 class="section-title-detalhes">Avaliações da Comunidade
                 <span th:if="${#lists.isEmpty(item.avaliacoes)}">(Nenhuma avaliação ainda)</span>
             </h2>
             <div class="avaliacoes-grid" th:unless="${#lists.isEmpty(item.avaliacoes)}">
-                <!-- Exemplo de Card de Avaliação (Gerado dinamicamente com Thymeleaf) -->
+                <!- Exemplo de Card de Avaliação (Gerado dinamicamente com Thymeleaf) 
                 <div class="avaliacao-card" th:each="avaliacao : ${item.avaliacoes}">
                     <div class="avaliacao-header">
                         <img th:src="${avaliacao.usuario.urlFotoPerfil ?: '/img/avatar_placeholder.png'}" alt="Avatar do Usuário" class="avatar-usuario">
@@ -138,9 +136,9 @@
                         Este é um comentário de exemplo sobre o filme. Achei muito bom, com ótimas atuações e uma história envolvente.
                     </p>
                 </div>
-                <!-- Fim do Card de Avaliação -->
+                <!- Fim do Card de Avaliação 
             </div>
-        </section>
+        </section> -->
     </main>
 
     <!-- Footer (Reutilizado) -->
