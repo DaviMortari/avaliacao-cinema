@@ -1,6 +1,5 @@
 package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 
-import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

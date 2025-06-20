@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.Avaliacao;
-import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoDto;
 
 public class FilmesCardDto {
     private Long id;

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Link para o CSS geral (cinema.css) e o específico (detalhesItem.css) -->
     <link rel="stylesheet" th:href="@{/css/cinema.css}">
-    <link rel="stylesheet" th:href="@{/css/detalhesItem.css}">
+    <link rel="stylesheet" th:href="@{/css/avaliacao.css}">
 </head>
 <body>
     <!-- Header (Reutilizado de cinema.html/filmes.html) -->
@@ -74,7 +74,7 @@
         <th:block th:if="${#authentication.principal != 'anonymousUser'}">
             <section class="avaliar-item">
                 <h2 class="section-title-detalhes">Deixe sua Avaliação</h2>
-                <form th:action="@{/avaliacoes}" th:object="${avaliacao}" method="post" class="avaliacao-form">
+                <form th:action="@{/avaliacoes}" th:object="${avaliacao}" method="post" class="form-avaliacao">
                     <!-- Campos ocultos para IDs -->
                     <input type="hidden" name="filmeId" th:value="${item.id}" />
                     <input type="hidden" name="tipoItem" th:value="${item.tipo}" /> <!-- FILME ou SERIE -->

@@ -20,6 +20,11 @@ public class DatabaseInitializer implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
+        
+        if (filmeRepository.count() > 0 || seriesRepository.count() > 0) {
+            return;
+        }
+
         Filmes IlhaDoMedo = new Filmes("Ilha do Medo", "Suspense", "Martin Scorsese", 2010, "Um detetive investiga o desaparecimento de uma prisioneira em um hospital psiquiátrico.", "https://media.themoviedb.org/t/p/w500/qnWJFFkRv61e030Yc4xG8oVZUqG.jpg");
 
         Filmes Titanic = new Filmes("Titanic", "Romance", "James Cameron", 1997, "Um romance trágico a bordo do famoso navio que afundou.", "https://image.tmdb.org/t/p/original/1kLYRzVj6byWvFa3SLrAOcfgnfp.jpg");

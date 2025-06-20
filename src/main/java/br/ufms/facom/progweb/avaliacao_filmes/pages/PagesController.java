@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoDto;
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoService;
-import br.ufms.facom.progweb.avaliacao_filmes.filmes.Filmes;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesCardDto;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesService;
 import jakarta.persistence.EntityNotFoundException;
