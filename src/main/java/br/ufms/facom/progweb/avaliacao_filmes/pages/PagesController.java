@@ -79,4 +79,9 @@ public class PagesController {
         avaliacaoService.salvarAvaliacao(avaliacao);
         return "redirect:/filmes"; 
     }
+
+    @GetMapping("/criarFilme")
+    public String criarFilme(){
+        return "criarFilme";
+    }
 }

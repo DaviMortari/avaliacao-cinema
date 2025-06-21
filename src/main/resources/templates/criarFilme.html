@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineAvalia - Cadastrar Filme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/cinema.css}">
+    <style>
+        /* Estilos básicos para o formulário de cadastro de filme */
+        .form-cadastro-filme {
+            background-color: #2c2c2c; /* Cor de fundo escura */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            max-width: 700px;
+            margin: 40px auto; /* Centraliza o formulário e adiciona espaço */
+            color: #fff; /* Cor do texto branco */
+        }
+
+        .form-cadastro-filme h1 {
+            text-align: center;
+            color: #e50914; /* Vermelho vibrante */
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #ccc;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea {
+            width: calc(100% - 20px); /* Ajuste para padding */
+            padding: 12px 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #333;
+            color: #eee;
+            font-size: 1em;
+            box-sizing: border-box; /* Garante que padding não aumente a largura total */
+        }
+
+        .form-group textarea {
+            resize: vertical; /* Permite redimensionar verticalmente */
+            min-height: 100px;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e50914; /* Borda vermelha ao focar */
+            box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.3);
+        }
+
+        .btn-submit-filme {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #e50914;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit-filme:hover {
+            background-color: #ff0000;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .message.success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .message.error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* Reutilizando alguns estilos do filmes.css ou cinema.css para o header e footer */
+        body {
+            background-color: #1a1a1a; /* Fundo mais escuro */
+            color: #fff;
+            font-family: 'Lato', sans-serif; /* Assumindo que você usa Lato */
+        }
+
+        #header {
+            background-color: #0d0d0d;
+        }
+        .logo span {
+            color: #e50914;
+        }
+        nav ul li a {
+            color: #fff;
+        }
+        .btn-outline {
+            border: 1px solid #e50914;
+            color: #e50914;
+        }
+        .btn-primary {
+            background-color: #e50914;
+            color: #fff;
+        }
+        footer {
+            background-color: #0d0d0d;
+            color: #ccc;
+        }
+        footer .social-links a {
+            color: #ccc;
+        }
+        footer .social-links a:hover {
+            color: #e50914;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="logo">Cine<span>Avalia</span></div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/pages/home}">Home</a></li>
+                <li><a th:href="@{/pages/filmes}">Filmes</a></li>
+                <li><a th:href="@{/pages/series}">Series</a></li>
+                <li><a href="#">Sobre Nós</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a th:href="@{/pages/entrar}" class="btn btn-outline">Entrar</a>
+            <a th:href="@{/pages/criarConta}" class="btn btn-primary">Criar Conta</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="form-cadastro-filme">
+            <h1>Cadastrar Novo Filme</h1>
+            <form id="cadastroFilmeForm">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Ex: Interestelar" required>
+                </div>
+                <div class="form-group">
+                    <label for="genero">Gênero</label>
+                    <input type="text" id="genero" name="genero" placeholder="Ex: Ficção Científica, Ação" required>
+                </div>
+                <div class="form-group">
+                    <label for="diretor">Diretor</label>
+                    <input type="text" id="diretor" name="diretor" placeholder="Ex: Christopher Nolan" required>
+                </div>
+                <div class="form-group">
+                    <label for="anoLancamento">Ano de Lançamento</label>
+                    <input type="number" id="anoLancamento" name="anoLancamento" placeholder="Ex: 2014" min="1800" max="2100" required>
+                </div>
+                <div class="form-group">
+                    <label for="sinopse">Sinopse</label>
+                    <textarea id="sinopse" name="sinopse" placeholder="Breve resumo do filme..." rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imagem">URL da Imagem (TMDB ou similar)</label>
+                    <input type="text" id="imagem" name="imagem" placeholder="Ex: https://image.tmdb.org/t/p/original/filme.jpg" required>
+                </div>
+                <button type="submit" class="btn-submit-filme">Cadastrar Filme</button>
+                <div id="responseMessage" class="message"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="logo">Cine<span>Avalia</span></div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2025 CineAvalia. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Efeito de scroll no header
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Lógica para enviar o formulário via Fetch API
+        document.getElementById('cadastroFilmeForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const responseMessageElement = document.getElementById('responseMessage');
+            responseMessageElement.className = 'message'; // Reseta as classes de mensagem
+            responseMessageElement.textContent = ''; // Limpa mensagens anteriores
+
+            const filmeData = {
+                titulo: document.getElementById('titulo').value,
+                genero: document.getElementById('genero').value,
+                diretor: document.getElementById('diretor').value,
+                anoLancamento: parseInt(document.getElementById('anoLancamento').value),
+                sinopse: document.getElementById('sinopse').value,
+                imagem: document.getElementById('imagem').value,
+                // 'avaliacao' não é incluído aqui, pois o DTO tem um campo,
+                // mas a avaliação inicial geralmente é 0 ou não é definida na criação.
+                // Se precisar de um valor padrão, defina 0 aqui ou no backend.
+                avaliacao: 0 // Definindo um valor padrão para o DTO
+            };
+
+            // Validação simples
+            if (!filmeData.titulo || !filmeData.genero || !filmeData.diretor || isNaN(filmeData.anoLancamento) || !filmeData.sinopse || !filmeData.imagem) {
+                responseMessageElement.classList.add('error');
+                responseMessageElement.textContent = 'Por favor, preencha todos os campos obrigatórios.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/filmes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(filmeData)
+                });
+
+                if (response.ok) {
+                    responseMessageElement.classList.add('success');
+                    responseMessageElement.textContent = 'Filme cadastrado com sucesso!';
+                    document.getElementById('cadastroFilmeForm').reset(); // Limpa o formulário
+                } else {
+                    const errorData = await response.json();
+                    responseMessageElement.classList.add('error');
+                    responseMessageElement.textContent = `Erro ao cadastrar filme: ${errorData.message || response.statusText}`;
+                    console.error('Erro na resposta do servidor:', errorData);
+                }
+            } catch (error) {
+                responseMessageElement.classList.add('error');
+                responseMessageElement.textContent = 'Ocorreu um erro na conexão. Verifique sua rede e tente novamente.';
+                console.error('Erro na requisição:', error);
+            }
+        });
+    </script>
+</body>
+</html>

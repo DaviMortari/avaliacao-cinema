@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap'">
+    <link href="'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700;1,900&display=swap'">
     <link rel="stylesheet" th:href="@{/css/criarConta.css}">
     <title>Criar Conta</title>
 </head>
@@ -17,17 +17,97 @@
         </section>
         <form id="form" class="form">
             <div class="form-content">
-                <label for="username">Nome do usuário</label>
-                <input type="text" id="username" placeholder="Digite o nome do usuário">
+                <label for="nome">Nome do usuário</label>
+                <input type="text" id="nome" placeholder="Digite o nome do usuário" required>
 
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Digite o seu email">
+                <input type="email" id="email" placeholder="Digite o seu email" required>
 
-                <label for="password">Senha</label>
-                <input type="password" id="password" placeholder="Digite sua senha">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+                <label for="idade">Idade</label>
+                <input type="number" id="idade" placeholder="Digite sua idade" required>
+
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" placeholder="Digite seu CPF" required>
+
+                <label for="sexo">Sexo</label>
+                <select id="sexo" required>
+                    <option value="">Selecione</option>
+                    <option value="MASCULINO">Masculino</option>
+                    <option value="FEMININO">Feminino</option>
+                    <option value="OUTRO">Outro</option>
+                </select>
+
+                <label for="tipoUsuario">Tipo de Usuário</label>
+                <select id="tipoUsuario" required>
+                    <option value="">Selecione</option>
+                    <option value="USUARIO">Usuário</option>
+                    <option value="ADMIN">Administrador</option>
+                </select>
             </div>
             <button type="submit" class="login">Cadastrar</button>
+            <p id="message" style="color: green; margin-top: 10px;"></p>
+            <p id="error-message" style="color: red; margin-top: 10px;"></p>
         </form>
     </div>
+
+    <script>
+        document.getElementById('form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const idade = parseInt(document.getElementById('idade').value); // Converter para número
+            const cpf = document.getElementById('cpf').value;
+            const sexo = document.getElementById('sexo').value;
+            const tipoUsuario = document.getElementById('tipoUsuario').value;
+
+            const messageElement = document.getElementById('message');
+            const errorMessageElement = document.getElementById('error-message');
+            messageElement.textContent = ''; // Limpa mensagens anteriores
+            errorMessageElement.textContent = ''; // Limpa mensagens de erro anteriores
+
+            // Validação simples
+            if (!nome || !email || !senha || isNaN(idade) || !cpf || !sexo || !tipoUsuario) {
+                errorMessageElement.textContent = 'Por favor, preencha todos os campos.';
+                return;
+            }
+
+            const userData = {
+                nome: nome,
+                email: email,
+                senha: senha,
+                idade: idade,
+                cpf: cpf,
+                sexo: sexo, // Enviar como string "MASCULINO", "FEMININO", "OUTRO"
+                tipoUsuario: tipoUsuario // Enviar como string "USUARIO", "ADMIN"
+            };
+
+            try {
+                const response = await fetch('/usuarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (response.ok) {
+                    messageElement.textContent = 'Usuário cadastrado com sucesso!';
+                    document.getElementById('form').reset(); // Limpa o formulário
+                } else {
+                    const errorData = await response.json();
+                    errorMessageElement.textContent = `Erro ao cadastrar usuário: ${errorData.message || response.statusText}`;
+                    console.error('Erro de resposta:', errorData);
+                }
+            } catch (error) {
+                errorMessageElement.textContent = 'Ocorreu um erro na conexão. Tente novamente.';
+                console.error('Erro na requisição:', error);
+            }
+        });
+    </script>
 </body>
 </html>

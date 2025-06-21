@@ -58,7 +58,7 @@ public class Usuarios implements Serializable{
         this.idade = idade;
         this.cpf = cpf;
         this.sexo = sexo;
-        this.tipoUsuario = TipoUsuario.USUARIO;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public long getId() {
