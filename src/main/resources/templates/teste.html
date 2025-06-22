@@ -64,10 +64,11 @@
 
         <section class="avaliar-item">
             <h2 class="section-title-detalhes">Deixe sua Avaliação</h2>
-            <form th:action="@{/avaliacoes}" th:object="${avaliacao}" method="post" class="avaliacao-form">
+            <form id="avaliacao-form" th:object="${novaAvaliacao}" class="avaliacao-form">
                 <!-- Campos ocultos para IDs -->
-                <input type="hidden" name="filmeId" th:value="${item.id}" />
+                <input type="hidden" id="filmeId" name="filmeId" th:value="${item.id}" />
                 <input type="hidden" name="tipoItem" th:value="${item.tipo}" /> <!-- FILME ou SERIE -->
+                <input type="hidden" id="usuarioId" name="usuarioId" value="1" />
                 <!-- O ID do usuário logado seria pego no backend -->
                 <div class="form-group">
                     <label for="nota">Sua Nota (0.5 a 5.0):</label>
@@ -87,7 +88,7 @@
                 </div>
                 <div class="form-group">
                     <label for="comentario">Seu Comentário:</label>
-                    <textarea id="comentario" th:field="*{comentario}" rows="4" placeholder="O que você achou do filme?"></textarea>
+                    <textarea id="comentario" name="comentario" rows="4" placeholder="O que você achou do filme?"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-avaliar">Enviar Avaliação</button>
             </form>
@@ -95,10 +96,112 @@
 
         <section class="lista-avaliacoes">
             <h2 class="section-title-detalhes">Avaliações da Comunidade
-                <span th:if="${#lists.isEmpty(item.avaliacoes)}">(Nenhuma avaliação ainda)</span>
+                <span th:if="${#lists.isEmpty(avaliacoes)}">(Nenhuma avaliação ainda)</span>
             </h2>
             
+            <div class="avaliacoes-grid" th:unless="${#lists.isEmpty(avaliacoes)}">
+                
+                <div class="avaliacao-card" th:each="avaliacao : ${avaliacoes}">
+                    <div class="avaliacao-header">
+                        <img src="/img/avatar_placeholder.png" alt="Avatar do Usuário" class="avatar-usuario">
+                        
+                        <div class="avaliacao-usuario-info">
+                            <!-- OK: O campo 'usuario.nome' existe e será exibido -->
+                            <h4 th:text="${avaliacao.usuario.nome}">Nome do Usuário</h4>
+                            
+                            <!-- REMOVIDO: O campo 'dataCriacao' não existe no AvaliacaoDto. -->
+                            <!-- Você pode adicionar este campo ao seu DTO se quiser exibi-lo. -->
+                        </div>
+                        
+                        <div class="avaliacao-nota">
+                            <i class="fas fa-star"></i>
+                            <!-- OK: O campo 'nota' existe e será exibido -->
+                            <span th:text="${#numbers.formatDecimal(avaliacao.nota, 1, 1, 'COMMA')}">4.0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- OK: O campo 'comentario' existe e será exibido -->
+                    <p class="avaliacao-comentario" th:text="${avaliacao.comentario}">
+                        Este é um comentário de exemplo sobre o filme.
+                    </p>
+                </div> 
+            </div>
         </section>
     </main>
+
+    <script>
+
+        // Efeito de scroll no header (reutilizado)
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        document.getElementById('avaliacao-form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Impede o envio tradicional do formulário
+
+            const feedbackElement = document.getElementById('avaliacao-feedback');
+            feedbackElement.textContent = ''; // Limpa mensagens antigas
+            feedbackElement.style.color = 'green';
+
+            // Coleta dos dados do formulário
+            const filmeId = document.getElementById('filmeId').value;
+            const usuarioId = document.getElementById('usuarioId').value; // Pega o ID do usuário do campo oculto
+            const comentario = document.getElementById('comentario').value;
+            
+            // Pega a nota do radio button selecionado
+            const notaSelecionada = document.querySelector('input[name="nota"]:checked');
+            
+            if (!notaSelecionada) {
+                feedbackElement.textContent = 'Por favor, selecione uma nota.';
+                feedbackElement.style.color = 'red';
+                return; // Interrompe o envio se a nota não for selecionada
+            }
+            const nota = parseInt(notaSelecionada.value);
+
+            // Monta o objeto DTO em formato JSON
+            // A estrutura deve bater com a esperada pelo @RequestBody no controller
+            const avaliacaoDto = {
+                usuario: {
+                    id: parseInt(usuarioId) // O backend espera um objeto usuario com um id
+                },
+                filmeId: parseInt(filmeId),
+                nota: nota,
+                comentario: comentario
+            };
+
+            console.log('Enviando avaliação:', JSON.stringify(avaliacaoDto));
+
+            // Envia os dados para a API
+            try {
+                const response = await fetch('/api/avaliacoes', { // URL do seu controller
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(avaliacaoDto)
+                });
+
+                if (response.ok) {
+                    feedbackElement.textContent = 'Avaliação enviada com sucesso!';
+                    // Opcional: Limpar o formulário após o envio
+                    document.getElementById('avaliacao-form').reset();
+                    // Opcional: Recarregar a página ou adicionar a nova avaliação dinamicamente à lista
+                    setTimeout(() => location.reload(), 2000); // Recarrega a página após 2 segundos
+                } else {
+                    feedbackElement.textContent = 'Erro ao enviar avaliação. Tente novamente.';
+                    feedbackElement.style.color = 'red';
+                }
+            } catch (error) {
+                feedbackElement.textContent = 'Erro de conexão. Verifique sua rede.';
+                feedbackElement.style.color = 'red';
+                console.error('Erro de rede:', error);
+            }
+        });
+</script>
 </body>
 </html>

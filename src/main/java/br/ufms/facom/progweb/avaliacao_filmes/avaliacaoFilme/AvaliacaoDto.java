@@ -1,16 +1,16 @@
 package br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme;
 
-import br.ufms.facom.progweb.avaliacao_filmes.usuarios.Usuarios;
+import br.ufms.facom.progweb.avaliacao_filmes.usuarios.UsuariosDto;
 
 public class AvaliacaoDto {
-    private Usuarios usuario;
+    private UsuariosDto usuario;
     private Long filmeId;
-    private int nota;
+    private double nota;
     private String comentario;
 
     public AvaliacaoDto() {}
 
-    public AvaliacaoDto(Usuarios usuario, Long filmeId, int nota, String comentario) {
+    public AvaliacaoDto(UsuariosDto usuario, Long filmeId, double nota, String comentario) {
         this.usuario = usuario;
         this.filmeId = filmeId;
         this.nota = nota;
@@ -20,7 +20,10 @@ public class AvaliacaoDto {
     public long getUsuarioId() {
         return usuario.getId();
     }
-    public void setUsuario(Usuarios usuario) {
+    public UsuariosDto getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(UsuariosDto usuario) {
         this.usuario = usuario;
     }
 
@@ -31,10 +34,10 @@ public class AvaliacaoDto {
         this.filmeId = filmeId;
     }
 
-    public int getNota() {
+    public double getNota() {
         return nota;
     }
-    public void setNota(int nota) {
+    public void setNota(double nota) {
         this.nota = nota;
     }
 

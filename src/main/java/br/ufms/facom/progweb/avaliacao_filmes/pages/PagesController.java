@@ -1,5 +1,7 @@
 package br.ufms.facom.progweb.avaliacao_filmes.pages;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,7 +68,10 @@ public class PagesController {
             FilmesCardDto filmeParaAvaliar = service.buscarFilmeComoCardDtoPorId(id);
             model.addAttribute("item", filmeParaAvaliar);
 
-            model.addAttribute("avaliacao", new AvaliacaoDto());
+            List<AvaliacaoDto> avaliacaoDto = avaliacaoService.listarPorFilmeId(id);
+            model.addAttribute("avaliacoes", avaliacaoDto);
+
+            model.addAttribute("novaAvaliacao", new AvaliacaoDto());
             
             return "teste"; // (sem o .html)
         } catch (EntityNotFoundException e) {

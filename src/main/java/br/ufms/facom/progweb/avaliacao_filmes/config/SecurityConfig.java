@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 //import static org.springframework.security.config.Customizer.withDefaults; // Para httpBasic
 
 @Configuration
@@ -33,7 +32,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
                     // PERMITIR TUDO INICIALMENTE PARA TESTE - MUITO INSEGURO PARA PRODUÇÃO
-                    .requestMatchers(HttpMethod.POST, "/api/filmes").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/filmes","api/avaliacoes").permitAll()
                     .requestMatchers("/**").permitAll() // Permite acesso a TUDO sem autenticação
 
                     // Exemplo mais realista para começar:
