@@ -22,7 +22,7 @@ public class AvaliacaoController {
 
     // Método para salvar uma avaliação
     @PostMapping()
-    public ResponseEntity<AvaliacaoDto> salvarAvaliacao(@RequestBody AvaliacaoDto dto) {
+    public ResponseEntity<AvaliacaoRequestDto> salvarAvaliacao(@RequestBody AvaliacaoRequestDto dto) {
         service.salvarAvaliacao(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);

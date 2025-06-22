@@ -91,6 +91,7 @@
                     <textarea id="comentario" name="comentario" rows="4" placeholder="O que você achou do filme?"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-avaliar">Enviar Avaliação</button>
+                <div id="avaliacao-status"></div>
             </form>
         </section>
 
@@ -142,64 +143,83 @@
         });
 
         document.getElementById('avaliacao-form').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Impede o envio tradicional do formulário
+            // 1. Prevenção e Preparação
+            event.preventDefault(); // Impede que a página recarregue ao enviar
 
-            const feedbackElement = document.getElementById('avaliacao-feedback');
-            feedbackElement.textContent = ''; // Limpa mensagens antigas
-            feedbackElement.style.color = 'green';
+            const statusElement = document.getElementById('avaliacao-status');
+            statusElement.textContent = ''; // Limpa mensagens de feedback antigas
+            statusElement.className = '';   // Limpa classes de estilo (success/error)
 
-            // Coleta dos dados do formulário
-            const filmeId = document.getElementById('filmeId').value;
-            const usuarioId = document.getElementById('usuarioId').value; // Pega o ID do usuário do campo oculto
-            const comentario = document.getElementById('comentario').value;
+            // 2. Coleta e Validação dos Dados
             
-            // Pega a nota do radio button selecionado
+            // Pega a nota
             const notaSelecionada = document.querySelector('input[name="nota"]:checked');
-            
             if (!notaSelecionada) {
-                feedbackElement.textContent = 'Por favor, selecione uma nota.';
-                feedbackElement.style.color = 'red';
-                return; // Interrompe o envio se a nota não for selecionada
+                statusElement.textContent = 'Por favor, selecione uma nota de 1 a 5 estrelas!';
+                statusElement.className = 'status-message error';
+                return; // Para a execução se nenhuma nota foi selecionada
             }
-            const nota = parseInt(notaSelecionada.value);
+            const nota = parseFloat(notaSelecionada.value);
 
-            // Monta o objeto DTO em formato JSON
-            // A estrutura deve bater com a esperada pelo @RequestBody no controller
-            const avaliacaoDto = {
-                usuario: {
-                    id: parseInt(usuarioId) // O backend espera um objeto usuario com um id
-                },
-                filmeId: parseInt(filmeId),
+            // Pega o comentário
+            const comentario = document.getElementById('comentario').value;
+            if (!comentario.trim()) { // .trim() remove espaços em branco no início e fim
+                statusElement.textContent = 'Por favor, escreva um comentário.';
+                statusElement.className = 'status-message error';
+                return; // Para a execução se o comentário estiver vazio
+            }
+
+            // Pega o ID do filme da URL
+            const pathParts = window.location.pathname.split('/');
+            const filmeId = parseInt(pathParts[pathParts.length - 1]);
+            if (isNaN(filmeId)) { // Verifica se o ID do filme é um número válido
+                statusElement.textContent = 'Erro: ID do filme inválido na URL.';
+                statusElement.className = 'status-message error';
+                console.error("Não foi possível extrair um filmeId numérico da URL:", window.location.pathname);
+                return;
+            }
+
+            // Pega o ID do usuário (substituir pela lógica de usuário logado real)
+            const usuarioId = 1; // Provisório
+
+            // 3. Montagem do Objeto para Envio
+            const avaliacaoData = {
+                usuarioId: usuarioId,
+                filmeId: filmeId,
                 nota: nota,
                 comentario: comentario
             };
 
-            console.log('Enviando avaliação:', JSON.stringify(avaliacaoDto));
+            console.log("Enviando para a API o seguinte objeto:", JSON.stringify(avaliacaoData));
 
-            // Envia os dados para a API
+            // 4. Envio para a API com try/catch
             try {
-                const response = await fetch('/api/avaliacoes', { // URL do seu controller
+                const response = await fetch('/api/avaliacoes', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(avaliacaoDto)
+                    body: JSON.stringify(avaliacaoData)
                 });
 
+                // Verifica se a resposta do servidor foi bem-sucedida (status 2xx)
                 if (response.ok) {
-                    feedbackElement.textContent = 'Avaliação enviada com sucesso!';
-                    // Opcional: Limpar o formulário após o envio
-                    document.getElementById('avaliacao-form').reset();
-                    // Opcional: Recarregar a página ou adicionar a nova avaliação dinamicamente à lista
-                    setTimeout(() => location.reload(), 2000); // Recarrega a página após 2 segundos
+                    statusElement.textContent = 'Avaliação enviada com sucesso!';
+                    statusElement.className = 'status-message success';
+                    document.getElementById('avaliacao-form').reset(); // Limpa o formulário
+
+                    // Recarrega a página após 2 segundos para mostrar a nova avaliação
+                    setTimeout(() => window.location.reload(), 2000);
                 } else {
-                    feedbackElement.textContent = 'Erro ao enviar avaliação. Tente novamente.';
-                    feedbackElement.style.color = 'red';
+                    // Se o servidor respondeu com um erro (4xx, 5xx), tenta ler a mensagem
+                    const errorText = await response.text();
+                    throw new Error(errorText || `Erro do servidor: ${response.status}`);
                 }
             } catch (error) {
-                feedbackElement.textContent = 'Erro de conexão. Verifique sua rede.';
-                feedbackElement.style.color = 'red';
-                console.error('Erro de rede:', error);
+                // Pega erros de rede (ex: sem conexão) ou os erros que lançamos acima
+                statusElement.textContent = `Falha ao enviar: ${error.message}`;
+                statusElement.className = 'status-message error';
+                console.error('Erro durante o fetch:', error);
             }
         });
 </script>

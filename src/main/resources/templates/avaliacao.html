@@ -171,6 +171,36 @@
                 // console.log('Nota selecionada:', this.value);
             });
         });
+
+        document.getElementById('cadastroAvaliacaoForm').addEventListener('submit', async function(event){
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const responseMessageElement = document.getElementById('responseMessage');
+            responseMessageElement.className = 'message'; // Reseta as classes de mensagem
+            responseMessageElement.textContent = ''; // Limpa mensagens anteriores
+
+            const avaliacaoData = {
+                filmeId: document.getElementById('item.id').value,
+                tipoItem: this.tipoItem.value,
+                nota: this.nota.value,
+                comentario: this.comentario.value
+            };
+
+            const formData = new FormData(this);
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                // Sucesso, talvez redirecionar ou mostrar mensagem de sucesso
+                alert('Avaliação enviada com sucesso!');
+                window.location.reload(); // Recarrega a página para mostrar a nova avaliação
+            } else {
+                // Tratar erro
+                alert('Erro ao enviar avaliação. Tente novamente.');
+            }
+        });
     </script>
 </body>
 </html>

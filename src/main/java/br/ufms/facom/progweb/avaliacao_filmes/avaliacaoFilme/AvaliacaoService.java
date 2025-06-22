@@ -76,7 +76,7 @@ public class AvaliacaoService {
             .collect(Collectors.toList());
     }
 
-    public void salvarAvaliacao(AvaliacaoDto dto) {
+    public void salvarAvaliacao(AvaliacaoRequestDto dto) {
         Filmes filme = filmeRepository.findById(dto.getFilmeId());
         if (filme == null) {
             throw new IllegalArgumentException("Filme não encontrado com o ID: " + dto.getFilmeId());

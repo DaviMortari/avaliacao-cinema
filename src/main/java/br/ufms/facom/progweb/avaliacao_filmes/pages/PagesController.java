@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoDto;
+import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoRequestDto;
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoService;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesCardDto;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesService;
@@ -80,7 +81,7 @@ public class PagesController {
     }
 
     @PostMapping("/avaliacoes")
-    public String salvarAvaliacao(@ModelAttribute("avaliacao") AvaliacaoDto avaliacao) {
+    public String salvarAvaliacao(@ModelAttribute("avaliacao") AvaliacaoRequestDto avaliacao) {
         avaliacaoService.salvarAvaliacao(avaliacao);
         return "redirect:/filmes"; 
     }
