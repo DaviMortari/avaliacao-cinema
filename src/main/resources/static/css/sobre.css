@@ -1,0 +1,63 @@
+/* SOBRE.CSS - Estilos específicos da página "Sobre Nós" */
+
+/* Garante que a área principal da página tenha espaçamento abaixo do header fixo */
+.pagina-sobre {
+    padding-top: 120px;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+/* Container da seção de conteúdo */
+.sobre-nos {
+    max-width: 900px;
+    margin: 0 auto 100px auto;
+    padding: 40px 30px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.1);
+}
+
+/* Título da página */
+.sobre-nos h1 {
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Parágrafos */
+.sobre-nos p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+    color: var(--light-color);
+}
+
+/* Destaque dos nomes */
+.sobre-nos strong {
+    color: var(--primary-color);
+}
+
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .sobre-nos {
+        padding: 25px 20px;
+    }
+
+    .sobre-nos h1 {
+        font-size: 2rem;
+    }
+
+    .sobre-nos p {
+        font-size: 1rem;
+    }
+}
+.sobre-nos {
+    padding-top: 120px; /* ajusta conforme a altura do seu header */
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}

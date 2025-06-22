@@ -17,7 +17,7 @@
                 <li><a th:href="@{/pages/home}" th:classappend="${paginaAtual == 'home'} ? 'active' : ''">Home</a></li>
                 <li><a th:href="@{/pages/filmes}" th:classappend="${paginaAtual == 'filmes'} ? 'active' : ''">Filmes</a></li>
                 <li><a th:href="@{/pages/series}" th:classappend="${paginaAtual == 'series'} ? 'active' : ''">Series</a></li>
-                <li><a href="#">Sobre Nós</a></li>
+                <li><a th:href="@{/pages/sobre}" th:classappend="${paginaAtual == 'sobre'} ? 'active' : ''">Sobre Nós</a></li>
             </ul>
         </nav>
         <div class="auth-buttons">

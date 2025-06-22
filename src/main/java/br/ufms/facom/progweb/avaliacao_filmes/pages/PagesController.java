@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +17,6 @@ import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoService;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesCardDto;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesService;
 import jakarta.persistence.EntityNotFoundException;
-
-import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/pages")
@@ -89,5 +88,11 @@ public class PagesController {
     @GetMapping("/criarFilme")
     public String criarFilme(){
         return "criarFilme";
+    }
+
+    @GetMapping("/sobre")
+    public String sobre(Model model) {
+        model.addAttribute("paginaAtual", "sobre");
+        return "sobre";
     }
 }
