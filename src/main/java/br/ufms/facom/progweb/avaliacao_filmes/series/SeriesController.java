@@ -48,8 +48,8 @@ public class SeriesController {
     }
 
     @DeleteMapping("/excluir/{id}")
-    public ResponseEntity<?> excluirSerie(String id) {
-        var serie = service.encontrarSerie(id);
+    public ResponseEntity<?> excluirSerie(Long id) {
+        var serie = service.encontrarSeriePorId(id);
         if (serie != null) {
             this.service.excluirSerie(id);
             return ResponseEntity.ok().build();

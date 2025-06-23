@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
             serieData.forEach(serie => {
                 // Ponto D: Para cada filme, cria o HTML do card
                 const serieCardElement = document.createElement('div');
-                serieCardElement.classList.add('serie-card-item'); 
+                serieCardElement.classList.add('series-card-item'); 
                 // Adapte esta parte para corresponder exatamente à estrutura do seu card
                 // e aos dados que vêm da sua API (serie.titulo, serie.urlPoster, etc.)
                 serieCardElement.innerHTML = `
                     <img src="${serie.imagem || '/img/placeholder_poster.jpg'}" alt="Pôster de ${serie.titulo}">
-                    <div class="serie-card-item-info">
+                    <div class="series-card-item-info">
                         <h3>${serie.titulo}</h3>
                         <p class="genero">${serie.genero || 'Gênero não informado'}</p>
                         <div class="rating">

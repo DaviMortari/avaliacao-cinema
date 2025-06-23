@@ -171,6 +171,7 @@
 
             // Pega o ID do filme da URL
             const pathParts = window.location.pathname.split('/');
+            const tipoItem = pathParts[pathParts.length - 2]; // Pega o penúltimo segmento da URL
             const filmeId = parseInt(pathParts[pathParts.length - 1]);
             if (isNaN(filmeId)) { // Verifica se o ID do filme é um número válido
                 statusElement.textContent = 'Erro: ID do filme inválido na URL.';
@@ -183,13 +184,34 @@
             const usuarioId = 1; // Provisório
 
             // 3. Montagem do Objeto para Envio
-            const avaliacaoData = {
-                usuarioId: usuarioId,
-                filmeId: filmeId,
-                nota: nota,
-                comentario: comentario
+            // const avaliacaoData = {
+            //     usuarioId: usuarioId,
+            //     filmeId: filmeId,
+            //     nota: nota,
+            //     comentario: comentario
+            // }
+
+            let avaliacaoData;
+            if (tipoItem === 'filmes'){
+                avaliacaoData = {
+                    usuarioId: usuarioId,
+                    filmeId: filmeId,
+                    nota: nota,
+                    comentario: comentario,
+                    tipo: 'FILME'
+                }
+            }
+            else if(tipoItem === 'series'){
+                avaliacaoData = {
+                    usuarioId: usuarioId,
+                    serieId: filmeId, // Aqui usamos 'serieId' para séries
+                    nota: nota,
+                    comentario: comentario,
+                    tipo: 'SERIE'
+                }
             };
 
+            console.log("Tipo de item:", tipoItem);
             console.log("Enviando para a API o seguinte objeto:", JSON.stringify(avaliacaoData));
 
             // 4. Envio para a API com try/catch

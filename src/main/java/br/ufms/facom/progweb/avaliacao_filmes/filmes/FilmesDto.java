@@ -26,6 +26,8 @@ public class FilmesDto {
 
     private int avaliacao;
 
+    private String tipo;
+
     public FilmesDto() {}
 
     public FilmesDto(String titulo, String genero, String diretor, int anoLancamento, String sinopse, int avaliacao, String imagem) {
@@ -36,6 +38,7 @@ public class FilmesDto {
         this.sinopse = sinopse;
         this.avaliacao = avaliacao;
         this.imagem = imagem;
+        this.tipo = "FILME";
     }
 
     public String getTitulo() {
@@ -91,5 +94,9 @@ public class FilmesDto {
     }
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
 }

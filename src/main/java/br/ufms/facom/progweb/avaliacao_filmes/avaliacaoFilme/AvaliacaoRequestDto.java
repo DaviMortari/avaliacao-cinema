@@ -4,26 +4,36 @@ package br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme;
 // Ele é simples e contém apenas os IDs necessários.
 public class AvaliacaoRequestDto {
 
-    private Long filmeId;
+    private Long itemId;
     private double nota;
     private String comentario;
     private Long usuarioId;
+    private String tipoItemAvaliado;
 
     public AvaliacaoRequestDto() {}
 
-    public AvaliacaoRequestDto(Long filmeId, double nota, String comentario, Long usuarioId) {
-        this.filmeId = filmeId;
+    public AvaliacaoRequestDto(Long itemId, double nota, String comentario, Long usuarioId, String tipoItemAvaliado) {
+        this.itemId = itemId;
         this.nota = nota;
         this.comentario = comentario;
         this.usuarioId = usuarioId;
+        this.tipoItemAvaliado = tipoItemAvaliado;
     }
 
     public long getFilmeId() {
-        return filmeId;
+        return itemId;
     }
-    public void setFilmeId(Long filmeId) {
-        this.filmeId = filmeId;
+    public void setFilmeId(Long itemId) {
+        this.itemId = itemId;
     }
+
+    public long getSerieId() {
+        return itemId;
+    }
+    public void setSerieId(Long itemId) {
+        this.itemId = itemId;
+    }
+
     public double getNota() {
         return nota;
     }
@@ -41,5 +51,12 @@ public class AvaliacaoRequestDto {
     }
     public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public String getTipoItemAvaliado() {
+        return tipoItemAvaliado;
+    }
+    public void setTipoItemAvaliado(String tipoItemAvaliado) {
+        this.tipoItemAvaliado = tipoItemAvaliado;
     }
 }

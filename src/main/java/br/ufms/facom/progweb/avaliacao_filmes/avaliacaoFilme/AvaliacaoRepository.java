@@ -9,4 +9,5 @@ public interface AvaliacaoRepository extends CrudRepository<Avaliacao, Long> {
     Avaliacao findById(long id);
     boolean existsById(long id);
     List<Avaliacao> findAllByFilmeId(@Param("filmeId") long filmeId);
+    List<Avaliacao> findAllBySerieId(@Param("serieId") long serieId);
 }

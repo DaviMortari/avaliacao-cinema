@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmeRepository;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.Filmes;
+import br.ufms.facom.progweb.avaliacao_filmes.series.Series;
+import br.ufms.facom.progweb.avaliacao_filmes.series.SeriesRepository;
 import br.ufms.facom.progweb.avaliacao_filmes.usuarios.Usuarios;
 import br.ufms.facom.progweb.avaliacao_filmes.usuarios.UsuariosDto;
 import br.ufms.facom.progweb.avaliacao_filmes.usuarios.UsuariosRepository;
@@ -25,6 +27,9 @@ public class AvaliacaoService {
 
     @Autowired
     private UsuariosRepository usuariosRepository;
+
+    @Autowired
+    private SeriesRepository seriesRepository;
 
     // Services
     public Iterable<Avaliacao> listarTodasAvaliacoes() {
@@ -42,14 +47,25 @@ public class AvaliacaoService {
             avaliacao.getUsuario().getEmail(),
             avaliacao.getUsuario().getIdade()
             );
-
-        return new AvaliacaoDto(
-            usuarioDto,
-            avaliacao.getFilme().getId(),
-            avaliacao.getNota(),
-            avaliacao.getComentario()
-        );
+        if(avaliacao.getTipoItemAvaliado().toString() == "FILME") {
+            return new AvaliacaoDto(
+                usuarioDto,
+                avaliacao.getFilme().getId(),
+                avaliacao.getNota(),
+                avaliacao.getComentario()
+            );
+        }
+        else{
+            return new AvaliacaoDto(
+                usuarioDto,
+                avaliacao.getSerie().getId(),
+                avaliacao.getNota(),
+                avaliacao.getComentario()
+            );
+        }
     }
+
+
 
     // public AvaliacaoDto encontrarAvaliacaoPorId(long id) {
     //     Avaliacao avaliacao = repository.findById(id);
@@ -76,24 +92,52 @@ public class AvaliacaoService {
             .collect(Collectors.toList());
     }
 
-    public void salvarAvaliacao(AvaliacaoRequestDto dto) {
-        Filmes filme = filmeRepository.findById(dto.getFilmeId());
-        if (filme == null) {
-            throw new IllegalArgumentException("Filme não encontrado com o ID: " + dto.getFilmeId());
-        }
+    @Transactional(readOnly = true)
+    public List<AvaliacaoDto> listarPorSerieId(Long serieId) {
+        List<Avaliacao> avaliacoesDaSerie = repository.findAllBySerieId(serieId);
 
+        return avaliacoesDaSerie.stream()
+            .map(this::converterParaDto) // Usando um método helper para mais clareza
+            .collect(Collectors.toList());
+    }
+
+    public void salvarAvaliacao(AvaliacaoRequestDto dto) {
         Usuarios usuario = usuariosRepository.findById(dto.getUsuarioId());
         if (usuario == null) {
             throw new IllegalArgumentException("Usuário não encontrado com o ID: " + dto.getUsuarioId());
         }
 
-        Avaliacao novaAvaliacao = new Avaliacao(
-            dto.getNota(),
-            dto.getComentario(),
-            LocalDateTime.now(),
-            filme,
-            usuario
-        );
+        Avaliacao novaAvaliacao;
+
+        if("FILME".equals(dto.getTipoItemAvaliado())){
+            Filmes filme = filmeRepository.findById(dto.getFilmeId());
+            if (filme == null) {
+                throw new IllegalArgumentException("Filme não encontrado com o ID: " + dto.getFilmeId());
+            }
+
+            novaAvaliacao = new Avaliacao(
+                dto.getNota(),
+                dto.getComentario(),
+                LocalDateTime.now(),
+                filme,
+                usuario
+            );
+        }
+        else{
+            Series serie = seriesRepository.findById(dto.getSerieId());
+            if(serie == null) {
+                throw new IllegalArgumentException("Série não encontrada com o ID: " + dto.getSerieId());
+            }
+
+            novaAvaliacao = new Avaliacao(
+                dto.getNota(),
+                dto.getComentario(),
+                LocalDateTime.now(),
+                serie,
+                usuario
+            );
+        }
+        
 
         repository.save(novaAvaliacao);
     }

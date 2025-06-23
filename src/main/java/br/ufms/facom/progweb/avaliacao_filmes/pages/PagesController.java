@@ -15,6 +15,8 @@ import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoRequestDto
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoService;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesCardDto;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesService;
+import br.ufms.facom.progweb.avaliacao_filmes.series.SeriesCardDto;
+import br.ufms.facom.progweb.avaliacao_filmes.series.SeriesService;
 import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.ui.Model;
@@ -28,6 +30,9 @@ public class PagesController {
 
     @Autowired
     private AvaliacaoService avaliacaoService;
+
+    @Autowired
+    private SeriesService seriesService;
 
     @GetMapping("/home")
     public String cinema(Model model) {
@@ -77,6 +82,23 @@ public class PagesController {
             return "teste"; // (sem o .html)
         } catch (EntityNotFoundException e) {
             return "redirect:/filmes";
+        }
+    }
+
+    @GetMapping("/series/{id}")
+    public String mostrarPaginaDeAvaliacaoSerie(@PathVariable Long id, org.springframework.ui.Model model) {
+        try {
+            SeriesCardDto serieParaAvaliar = seriesService.buscarSerieComoCardDtoPorId(id);
+            model.addAttribute("item", serieParaAvaliar);
+
+            List<AvaliacaoDto> avaliacaoDto = avaliacaoService.listarPorSerieId(id);
+            model.addAttribute("avaliacoes", avaliacaoDto);
+
+            model.addAttribute("novaAvaliacao", new AvaliacaoDto());
+            
+            return "teste"; // (sem o .html)
+        } catch (EntityNotFoundException e) {
+            return "redirect:/series";
         }
     }
 
