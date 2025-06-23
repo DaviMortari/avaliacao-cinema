@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Link para o CSS geral (cinema.css) e o específico (filmes.css) -->
     <link rel="stylesheet" th:href="@{/css/cinema.css}">
-    <link rel="stylesheet" th:href="@{/css/filmes.css}">
+    <link rel="stylesheet" th:href="@{/css/series.css}">
 </head>
 <body>
     <header id="header">
@@ -26,10 +26,10 @@
         </div>
     </header>
 
-    <!-- Seção de Listagem de Filmes -->
-    <main class="filmes-catalogo-container">
-        <section class="filmes-listagem">
-            <h1 class="section-title-filmes">Catálogo Completo de Series</h1>
+    <!-- Seção de Listagem de Series -->
+    <main class="series-catalogo-container">
+        <section class="series-listagem">
+            <h1 class="section-title-series">Catálogo Completo de Series</h1>
             <div class="filtros-busca">
                 <input type="text" placeholder="Buscar por título, gênero, diretor...">
                 <select name="genero" id="filtro-genero">
@@ -40,70 +40,11 @@
                     <option value="ficcao">Ficção Científica</option>
                     <option value="terror">Terror</option>
                 </select>
-                <button class="btn-buscar-filmes"><i class="fas fa-search"></i> Buscar</button>
+                <button class="btn-buscar-series"><i class="fas fa-search"></i> Buscar</button>
             </div>
 
-            <div class="grid-filmes">
-                <!-- Exemplo de Card de Filme (Estes seriam gerados dinamicamente) -->
-                <div class="movie-card-item">
-                    <img th:src="@{/img/alto_compadecida.jpg}" alt="O Auto da Compadecida">
-                    <div class="movie-card-item-info">
-                        <h3>O Auto da Compadecida</h3>
-                        <p class="genero">Comédia, Drama</p>
-                        <div class="rating">
-                            <i class="fas fa-star"></i> 4.8
-                        </div>
-                        <a th:href="@{/filmes/1}" class="btn-ver-detalhes">Ver Detalhes</a>
-                    </div>
-                </div>
-
-                <div class="movie-card-item">
-                    <img th:src="@{/img/poderoso_chefao.jpg}" alt="O Poderoso Chefão">
-                    <div class="movie-card-item-info">
-                        <h3>O Poderoso Chefão</h3>
-                        <p class="genero">Drama, Crime</p>
-                        <div class="rating">
-                            <i class="fas fa-star"></i> 4.9
-                        </div>
-                        <a th:href="@{/filmes/2}" class="btn-ver-detalhes">Ver Detalhes</a>
-                    </div>
-                </div>
-
-                <div class="movie-card-item">
-                    <img th:src="@{/img/ilha_do_medo.jpg}" alt="Ilha do Medo">
-                    <div class="movie-card-item-info">
-                        <h3>Ilha do Medo</h3>
-                        <p class="genero">Suspense, Mistério</p>
-                        <div class="rating">
-                            <i class="fas fa-star"></i> 4.7
-                        </div>
-                        <a th:href="@{/filmes/3}" class="btn-ver-detalhes">Ver Detalhes</a>
-                    </div>
-                </div>
-
-                <div class="movie-card-item">
-                    <img th:src="@{/img/titanic.jpg}" alt="Titanic">
-                    <div class="movie-card-item-info">
-                        <h3>Titanic</h3>
-                        <p class="genero">Romance, Drama</p>
-                        <div class="rating">
-                            <i class="fas fa-star"></i> 4.5
-                        </div>
-                        <a th:href="@{/filmes/4}" class="btn-ver-detalhes">Ver Detalhes</a>
-                    </div>
-                </div>
-                 <div class="movie-card-item">
-                    <img th:src="@{/img/conclave.jpeg}" alt="Conclave">
-                    <div class="movie-card-item-info">
-                        <h3>Conclave</h3>
-                        <p class="genero">Suspense, Drama</p>
-                        <div class="rating">
-                            <i class="fas fa-star"></i> 4.2
-                        </div>
-                        <a th:href="@{/filmes/5}" class="btn-ver-detalhes">Ver Detalhes</a>
-                    </div>
-                </div>
-                <!-- Adicionar mais cards conforme necessário -->
+            <div class="grid-series">
+                
             </div>
 
             <!-- Paginação (Exemplo) -->
@@ -141,8 +82,10 @@
         });
 
         // Lógica para o Thymeleaf marcar o link ativo no controller:
-        // No seu controller para a rota de filmes:
-        // model.addAttribute("paginaAtual", "filmes");
+        // No seu controller para a rota de series:
+        // model.addAttribute("paginaAtual", "series");
     </script>
+
+    <script th:src="@{/js/series.js}"></script>
 </body>
 </html>
