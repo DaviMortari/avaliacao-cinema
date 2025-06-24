@@ -121,10 +121,21 @@ public class Avaliacao implements Serializable{
         this.filme = filme;
     }
 
+    public Series getSerie() {
+        return serie;
+    }
+    public void setSerie(Series serie) {
+        this.serie = serie;
+    }
+
     public Usuarios getUsuario() {
         return usuario;
     }
     public void setUsuario(Usuarios usuario) {
         this.usuario = usuario;
+    }
+
+    public TipoItemAvaliado getTipoItemAvaliado() {
+        return tipoItemAvaliado;
     }
 }

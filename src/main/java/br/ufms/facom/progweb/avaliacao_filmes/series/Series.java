@@ -2,6 +2,7 @@ package br.ufms.facom.progweb.avaliacao_filmes.series;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.Avaliacao;
@@ -34,7 +35,7 @@ public class Series implements Serializable{
     private String sinopse;
 
     @OneToMany
-    private List<Avaliacao> avaliacao;
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
 
     @Column
     int temporadas;
@@ -100,11 +101,11 @@ public class Series implements Serializable{
         this.sinopse = sinopse;
     }
 
-    public List<Avaliacao> getAvaliacao() {
-        return avaliacao;
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
     }
-    //public void setAvaliacao(int avaliacao) {
-    //    this.avaliacao = avaliacao;
+    //public void setAvaliacao(Avaliacao avaliacoes) {
+    //    this.avaliacoes = avaliacoes;
     //}
     public String getImagem() {
         return imagem;
@@ -115,5 +116,12 @@ public class Series implements Serializable{
     
     public String getTipo() {
         return tipo;
+    }
+
+    public int getTemporadas() {
+        return temporadas;
+    }
+    public void setDiretor(int temporadas) {
+        this.temporadas = temporadas;
     }
 }
