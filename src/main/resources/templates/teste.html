@@ -68,7 +68,6 @@
                 <!-- Campos ocultos para IDs -->
                 <input type="hidden" id="filmeId" name="filmeId" th:value="${item.id}" />
                 <input type="hidden" name="tipoItem" th:value="${item.tipo}" /> <!-- FILME ou SERIE -->
-                <input type="hidden" id="usuarioId" name="usuarioId" value="1" />
                 <!-- O ID do usuário logado seria pego no backend -->
                 <div class="form-group">
                     <label for="nota">Sua Nota (0.5 a 5.0):</label>
@@ -180,8 +179,7 @@
                 return;
             }
 
-            // Pega o ID do usuário (substituir pela lógica de usuário logado real)
-            const usuarioId = 1; // Provisório
+            
 
             // 3. Montagem do Objeto para Envio
             // const avaliacaoData = {
@@ -194,7 +192,6 @@
             let avaliacaoData;
             if (tipoItem === 'filmes'){
                 avaliacaoData = {
-                    usuarioId: usuarioId,
                     filmeId: itemId,
                     nota: nota,
                     comentario: comentario,
@@ -203,7 +200,6 @@
             }
             else if(tipoItem === 'series'){
                 avaliacaoData = {
-                    usuarioId: usuarioId,
                     serieId: itemId, // Aqui usamos 'serieId' para séries
                     nota: nota,
                     comentario: comentario,

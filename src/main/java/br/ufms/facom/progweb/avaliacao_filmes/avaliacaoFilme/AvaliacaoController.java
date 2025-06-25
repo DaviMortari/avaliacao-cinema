@@ -3,6 +3,8 @@ package br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,8 +24,11 @@ public class AvaliacaoController {
 
     // Método para salvar uma avaliação
     @PostMapping()
-    public ResponseEntity<AvaliacaoRequestDto> salvarAvaliacao(@RequestBody AvaliacaoRequestDto dto) {
-        service.salvarAvaliacao(dto);
+    public ResponseEntity<AvaliacaoRequestDto> salvarAvaliacao(@RequestBody AvaliacaoRequestDto dto,
+        @AuthenticationPrincipal UserDetails userDetails) {
+
+        String username = userDetails.getUsername();
+        service.salvarAvaliacao(dto, username);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }

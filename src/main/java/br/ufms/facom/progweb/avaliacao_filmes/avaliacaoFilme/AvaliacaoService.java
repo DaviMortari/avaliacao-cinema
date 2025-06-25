@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -101,10 +101,10 @@ public class AvaliacaoService {
             .collect(Collectors.toList());
     }
 
-    public void salvarAvaliacao(AvaliacaoRequestDto dto) {
-        Usuarios usuario = usuariosRepository.findById(dto.getUsuarioId());
+    public void salvarAvaliacao(AvaliacaoRequestDto dto, String username) {
+        Usuarios usuario = usuariosRepository.findByEmail(username);
         if (usuario == null) {
-            throw new IllegalArgumentException("Usuário não encontrado com o ID: " + dto.getUsuarioId());
+            throw new IllegalArgumentException("Usuário não encontrado com o Email: " + username);
         }
 
         Avaliacao novaAvaliacao;
