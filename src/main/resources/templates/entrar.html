@@ -12,24 +12,43 @@
         <h1>Cine<span>Avalia</span></h1>
     </div>
     <main class="container">
-        <form>
+        <form th:action="@{/perform_login}" method="post">
+            <!-- Bloco para exibir mensagens de erro ou sucesso -->
+            <div th:if="${param.error}" class="alert alert-danger" style="color: red; text-align: center; margin-bottom: 10px;">
+                Usuário ou senha inválidos.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success" style="color: green; text-align: center; margin-bottom: 10px;">
+                Você foi desconectado com sucesso.
+            </div>
+
             <h1>Login</h1>
+
+            <!-- Adicionado o atributo name="username" -->
             <div class="input-box">
-                <input placeholder="Usuário" type="email">
+                <input placeholder="Usuário" type="email" name="username" required>
                 <i class="bx bxs-user"></i>
             </div>
+
+            <!-- Adicionado o atributo name="password" -->
             <div class="input-box">
-                <input placeholder="Senha" type="password">
+                <input placeholder="Senha" type="password" name="password" required>
                 <i class="bx bxs-lock-alt"></i>
             </div>
+
             <div class="remember-forgot">
                 <label>
-                    <input type="checkbox">
+                    <input type="checkbox" name="remember-me"> <!-- Spring Security pode usar isso também -->
                     Lembrar senha
                 </label>
                 <a href="#">Esqueci senha</a>
             </div>
+
             <button type="submit" class="login">Entrar</button>
+
+            <!-- Link para a página de criação de conta -->
+            <div class="register-link" style="text-align: center; margin-top: 15px;">
+                <p>Não tem uma conta? <a th:href="@{/pages/criarConta}">Crie uma aqui</a></p>
+            </div>
         </form>
     </main>
 </body>

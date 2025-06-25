@@ -33,10 +33,10 @@ public class SecurityConfig {
                 authorizeRequests
                     // PERMITIR TUDO INICIALMENTE PARA TESTE - MUITO INSEGURO PARA PRODUÇÃO
                     .requestMatchers(HttpMethod.POST, "/api/filmes","api/avaliacoes").permitAll()
-                    .requestMatchers("/**").permitAll() // Permite acesso a TUDO sem autenticação
+                    // .requestMatchers("/**").permitAll() // Permite acesso a TUDO sem autenticação
 
                     // Exemplo mais realista para começar:
-                    /*.requestMatchers(
+                    .requestMatchers(
                             "/pages/criarConta",
                             "/pages/home",
                             "/usuarios/salvar", // Seu endpoint de salvar usuário
@@ -45,14 +45,15 @@ public class SecurityConfig {
                             "/pages/filmes",
                             "/pages/series",
                             "/pages/sobre",
-                            "/filmes/info",   // Endpoint de processamento de login do Spring Security
+                            "/api/filmes/listar",
+                            "/api/series/listar",   // Endpoint de processamento de login do Spring Security
                             "/css/**",          // Seus arquivos CSS
                             "/js/**",           // Seus arquivos JS
                             "/img/**",          // Suas imagens
                             "/api/filmes",      // Sua API de filmes, se for pública
                             "/api/avaliacoes/filme/**" // Se quiser permitir ver avaliações sem login
                     ).permitAll() // Permite acesso a estas rotas/recursos sem autenticação
-                    .anyRequest().authenticated() // Todas as outras requisições exigem autenticação*/
+                    .anyRequest().authenticated() // Todas as outras requisições exigem autenticação
             )
             .formLogin(formLogin -> // Configura o formulário de login padrão do Spring Security
                 formLogin
