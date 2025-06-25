@@ -3,6 +3,8 @@ package br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.Filmes;
 import br.ufms.facom.progweb.avaliacao_filmes.series.Series;
 import br.ufms.facom.progweb.avaliacao_filmes.usuarios.Usuarios;
@@ -44,10 +46,12 @@ public class Avaliacao implements Serializable{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "filme_id", nullable = true)
+    @JsonBackReference
     private Filmes filme;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "serie_id", nullable = true)
+    @JsonBackReference
     private Series serie;
 
     @ManyToOne

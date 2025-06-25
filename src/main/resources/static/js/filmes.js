@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3>${movie.titulo}</h3>
                         <p class="genero">${movie.genero || 'Gênero não informado'}</p>
                         <div class="rating">
-                            <i class="fas fa-star"></i> ${movie.avaliacao ? movie.avaliacao.toFixed(1) : 'N/A'}
+                            <i class="fas fa-star"></i> ${movie.mediaAvaliacoes ? movie.mediaAvaliacoes.toFixed(1) : 'N/A'}
                         </div>
                         <a href="/pages/filmes/${movie.id}" class="btn-ver-detalhes">Avaliar</a>
                     </div>
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Chama a função para buscar e renderizar os filmes quando a página carregar
-    fetchMovies();
+    //fetchMovies();
 
     // Lógica para filtros e paginação (simulação)
     console.log('Página de Filmes carregada e pronta para buscar dados dinâmicos!');

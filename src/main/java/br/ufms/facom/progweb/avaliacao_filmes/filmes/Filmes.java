@@ -5,6 +5,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+// import org.hibernate.annotations.CascadeType; // Removed incorrect import
+import jakarta.persistence.CascadeType;
+
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.Avaliacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,7 +39,8 @@ public class Filmes implements Serializable{
     @Column
     private String sinopse;
 
-    @OneToMany
+    @OneToMany(mappedBy = "filme", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JsonManagedReference
     private List<Avaliacao> avaliacoes = new ArrayList<>();
 
     @Column

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.Avaliacao;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class FilmesService {
@@ -72,6 +73,7 @@ public class FilmesService {
         return dto;
     }
 
+    @Transactional(readOnly = true)
     public List<FilmesCardDto> buscarTodosOsFilmes(){
         List<Filmes> filmes = (List<Filmes>) repository.findAll();
         return filmes.stream()

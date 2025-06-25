@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Chama a função para buscar e renderizar os series quando a página carregar
-    fetchSerie();
+    //fetchSerie();
 
     // Lógica para filtros e paginação (simulação)
     console.log('Página de Filmes carregada e pronta para buscar dados dinâmicos!');

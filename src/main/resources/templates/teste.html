@@ -172,11 +172,11 @@
             // Pega o ID do filme da URL
             const pathParts = window.location.pathname.split('/');
             const tipoItem = pathParts[pathParts.length - 2]; // Pega o penúltimo segmento da URL
-            const filmeId = parseInt(pathParts[pathParts.length - 1]);
-            if (isNaN(filmeId)) { // Verifica se o ID do filme é um número válido
+            const itemId = parseInt(pathParts[pathParts.length - 1]);
+            if (isNaN(itemId)) { // Verifica se o ID do filme é um número válido
                 statusElement.textContent = 'Erro: ID do filme inválido na URL.';
                 statusElement.className = 'status-message error';
-                console.error("Não foi possível extrair um filmeId numérico da URL:", window.location.pathname);
+                console.error("Não foi possível extrair um itemId numérico da URL:", window.location.pathname);
                 return;
             }
 
@@ -195,19 +195,19 @@
             if (tipoItem === 'filmes'){
                 avaliacaoData = {
                     usuarioId: usuarioId,
-                    filmeId: filmeId,
+                    filmeId: itemId,
                     nota: nota,
                     comentario: comentario,
-                    tipo: 'FILME'
+                    tipoItemAvaliado: 'FILME' 
                 }
             }
             else if(tipoItem === 'series'){
                 avaliacaoData = {
                     usuarioId: usuarioId,
-                    serieId: filmeId, // Aqui usamos 'serieId' para séries
+                    serieId: itemId, // Aqui usamos 'serieId' para séries
                     nota: nota,
                     comentario: comentario,
-                    tipo: 'SERIE'
+                    tipoItemAvaliado: 'SERIE'
                 }
             };
 
