@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3>${serie.titulo}</h3>
                         <p class="genero">${serie.genero || 'Gênero não informado'}</p>
                         <div class="rating">
-                            <i class="fas fa-star"></i> ${serie.avaliacao ? serie.avaliacao.toFixed(1) : 'N/A'}
+                            <i class="fas fa-star"></i> ${serie.mediaAvaliacoes ? serie.mediaAvaliacoes.toFixed(1) : 'N/A'}
                         </div>
                         <a href="/pages/series/${serie.id}" class="btn-ver-detalhes">Avaliar</a>
                     </div>
