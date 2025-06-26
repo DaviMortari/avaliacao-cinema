@@ -61,6 +61,12 @@ public class PagesController {
         return "series";
     }
 
+    @GetMapping("/sobre")
+    public String sobre(Model model) {
+        model.addAttribute("paginaAtual", "sobre");
+        return "sobre";
+    }
+
     @GetMapping("/avaliacao")
     public String avaliacao(Model model) {
         model.addAttribute("paginaAtual", "avaliacao");
@@ -112,9 +118,8 @@ public class PagesController {
         return "criarFilme";
     }
 
-    @GetMapping("/sobre")
-    public String sobre(Model model) {
-        model.addAttribute("paginaAtual", "sobre");
-        return "sobre";
+    @GetMapping("/criarSerie")
+    public String criarSerie(){
+        return "criarSerie";
     }
 }

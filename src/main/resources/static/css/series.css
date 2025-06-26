@@ -212,6 +212,26 @@ body {
     border-color: var(--primary-color);
 }
 
+.paginacao .btn-criar-serie {
+    padding: 10px 15px;
+    border: 1px solid var(--gray-color);
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    border-radius: 5px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.paginacao .btn-criar-serie:hover,
+.paginacao .btn-criar-serie.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
 /* Responsividade para filtros e grid */
 @media (max-width: 768px) {
     .filtros-busca {
