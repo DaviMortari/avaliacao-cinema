@@ -105,19 +105,19 @@
     margin-bottom: 40px;
 }
 
-.form-avaliacao .form-group {
+.avaliacao-form .form-group {
     margin-bottom: 20px;
 }
 
-.form-avaliacao label {
+.avaliacao-form label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
     color: var(--light-color);
 }
 
-.form-avaliacao textarea,
-.form-avaliacao input[type="number"] /* Se fosse usar input number para nota */ {
+.avaliacao-form textarea,
+.avaliacao-form input[type="number"] /* Se fosse usar input number para nota */ {
     width: 100%;
     padding: 12px;
     border-radius: 5px;
@@ -127,8 +127,8 @@
     font-size: 1rem;
 }
 
-.form-avaliacao textarea:focus,
-.form-avaliacao input[type="number"]:focus {
+.avaliacao-form textarea:focus,
+.avaliacao-form input[type="number"]:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 8px rgba(229, 9, 20, 0.3);
