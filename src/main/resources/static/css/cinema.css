@@ -340,3 +340,23 @@ footer {
         padding: 30px 20px;
     }
 }
+
+/* Alinha o conteúdo do top-item (imagem, ranking, texto) */
+.top-item {
+    display: flex;
+    align-items: center; /* Alinha verticalmente no centro */
+    gap: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px; /* Reduz um pouco o padding para a imagem caber melhor */
+    border-radius: 8px; /* Bordas um pouco mais arredondadas */
+    transition: var(--transition);
+}
+
+/* Estilo para a nova imagem do poster */
+.top-item-poster {
+    width: 60px;  
+    height: 90px; 
+    object-fit: cover; 
+    border-radius: 5px; /* Bordas arredondadas para a imagem */
+    flex-shrink: 0; /* Impede que a imagem encolha */
+}

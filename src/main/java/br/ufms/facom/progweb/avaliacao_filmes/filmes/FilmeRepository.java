@@ -1,7 +1,9 @@
 package br.ufms.facom.progweb.avaliacao_filmes.filmes;
 
-import org.springframework.data.repository.CrudRepository;
 import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
 public interface FilmeRepository extends CrudRepository<Filmes, Long> {
     Filmes findById(long id);
@@ -11,7 +13,9 @@ public interface FilmeRepository extends CrudRepository<Filmes, Long> {
     boolean existsByTitulo(String titulo);
     
     // Métodos de consulta personalizados podem ser definidos aqui
-    // Exemplo: List<Filmes> findByTituloContaining(String titulo);
+    @Query("SELECT f FROM Filmes f JOIN f.avaliacoes a GROUP BY f.id ORDER BY AVG(a.nota) DESC LIMIT 3")
+    List<Filmes> findTop3ByOrderByMediaAvaliacoesDesc();
+
     
     // Outros métodos de manipulação de dados podem ser adicionados conforme necessário
     

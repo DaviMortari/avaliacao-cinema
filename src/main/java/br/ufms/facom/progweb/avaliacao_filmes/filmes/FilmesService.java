@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.Avaliacao;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class FilmesService {
@@ -98,5 +98,11 @@ public class FilmesService {
         avaliacao.setFilme(filme);
         // Aqui você deve adicionar lógica para salvar a avaliação no repositório de avaliações
         // Por exemplo: avaliacaoRepository.save(avaliacao);
+    }
+    public List<FilmesCardDto> buscarTop3Filmes() {
+    List<Filmes> topFilmes = repository.findTop3ByOrderByMediaAvaliacoesDesc();
+    return topFilmes.stream()
+        .map(this::converterParaCardDto)
+        .collect(Collectors.toList());
     }
 }

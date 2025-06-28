@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoDto;
-//import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoRequestDto;
 import br.ufms.facom.progweb.avaliacao_filmes.avaliacaoFilme.AvaliacaoService;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesCardDto;
 import br.ufms.facom.progweb.avaliacao_filmes.filmes.FilmesService;
@@ -25,7 +22,7 @@ import jakarta.persistence.EntityNotFoundException;
 public class PagesController {
 
     @Autowired
-    private FilmesService service;
+    private FilmesService filmesService;
 
     @Autowired
     private AvaliacaoService avaliacaoService;
@@ -36,8 +33,10 @@ public class PagesController {
     @GetMapping("/home")
     public String cinema(Model model) {
         model.addAttribute("paginaAtual", "home");
+        model.addAttribute("topFilmes", filmesService.buscarTop3Filmes());
+        model.addAttribute("topSeries", seriesService.buscarTop3Series());
         return "cinema";
-    }
+}
 
     @GetMapping("/entrar")
     public String entrar() {
@@ -76,7 +75,7 @@ public class PagesController {
     @GetMapping("/filmes/{id}")
     public String mostrarPaginaDeAvaliacao(@PathVariable Long id, org.springframework.ui.Model model) {
         try {
-            FilmesCardDto filmeParaAvaliar = service.buscarFilmeComoCardDtoPorId(id);
+            FilmesCardDto filmeParaAvaliar = filmesService.buscarFilmeComoCardDtoPorId(id);
             model.addAttribute("item", filmeParaAvaliar);
 
             List<AvaliacaoDto> avaliacaoDto = avaliacaoService.listarPorFilmeId(id);
@@ -122,4 +121,5 @@ public class PagesController {
     public String criarSerie(){
         return "criarSerie";
     }
+    
 }

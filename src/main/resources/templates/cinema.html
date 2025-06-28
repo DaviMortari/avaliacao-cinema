@@ -119,113 +119,40 @@
         </div>
     </section>
 
-    <!-- Top 10 Semanal -->
-    <section class="top-movies">
-        <h2 class="section-title">Top 10 Semanal</h2>
-        <div class="top-list">
-            <div class="top-item">
-                <span class="rank">1</span>
-                <div>
-                    <h3>Filme Top 1</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.8</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-item">
-                <span class="rank">2</span>
-                <div>
-                    <h3>Filme Top 2</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-item">
-                <span class="rank">3</span>
-                <div>
-                    <h3>Filme Top 3</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.6</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-item">
-                <span class="rank">4</span>
-                <div>
-                    <h3>Filme Top 4</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.5</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-item">
-                <span class="rank">5</span>
-                <div>
-                    <h3>Filme Top 5</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.4</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-item">
-                <span class="rank">6</span>
-                <div>
-                    <h3>Filme Top 6</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.3</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-item">
-                <span class="rank">7</span>
-                <div>
-                    <h3>Filme Top 7</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.2</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-item">
-                <span class="rank">8</span>
-                <div>
-                    <h3>Filme Top 8</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.1</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-item">
-                <span class="rank">9</span>
-                <div>
-                    <h3>Filme Top 9</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.0</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-item">
-                <span class="rank">10</span>
-                <div>
-                    <h3>Filme Top 10</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>3.9</span>
-                    </div>
+    <!-- Top 3 Semanal -->
+<section class="top-movies">
+    <h2 class="section-title">Top 3 Filmes da Semana</h2>
+    <div class="top-list">
+        <div class="top-item" th:each="filme, iterStat : ${topFilmes}">
+            <img th:src="${filme.imagem}" alt="Pôster do filme" class="top-item-poster">
+            <span class="rank" th:text="${iterStat.count}">1</span>
+            <div>
+                <h3 th:text="${filme.titulo}">Filme Top 1</h3>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <span th:text="${#numbers.formatDecimal(filme.mediaAvaliacoes, 1, 1, 'COMMA')}">4.8</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
+<section class="top-movies">
+    <h2 class="section-title">Top 3 Séries da Semana</h2>
+    <div class="top-list">
+        <div class="top-item" th:each="serie, iterStat : ${topSeries}">
+            <img th:src="${serie.imagem}" alt="Pôster da série" class="top-item-poster">
+            <span class="rank" th:text="${iterStat.count}">1</span>
+            <div>
+                <h3 th:text="${serie.titulo}">Série Top 1</h3>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <span th:text="${#numbers.formatDecimal(serie.mediaAvaliacoes, 1, 1, 'COMMA')}">4.8</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Rodapé -->
     <footer>
         <div class="logo">Cine<span>Avalia</span></div>
