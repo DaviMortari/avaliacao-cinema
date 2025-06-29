@@ -37,88 +37,21 @@
         </div>
     </section>
 
-    <!-- Destaques -->
+   <!-- Filmes em Destaque -->
     <section class="featured">
-        <h2 class="section-title">Em Destaque</h2>
-        <div class="carousel">
-            <div class="movie-card">
-                <img th:src="@{/img/alto_compadecida.jpg}" alt="Filme 1">
-                <div class="movie-info">
-                    <h3>O Auto da Compadecida</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span>4.0</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img th:src="@{/img/conclave.jpeg}" alt="Filme 2">
-                <div class="movie-info">
-                    <h3>Conclave</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <i class="far fa-star"></i>
-                        <span>3.5</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="../img/ilha_do_medo.jpg" alt="Filme 3">
-                <div class="movie-info">
-                    <h3>Ilha do Medo</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>5.0</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="../img/poderoso_chefao.jpg" alt="Filme 4">
-                <div class="movie-info">
-                    <h3>O Poderoso Chefão</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span>2.0</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-            </div>
-            <div class="movie-card">
-                <img src="../img/titanic.jpg" alt="Filme 5">
-                <div class="movie-info">
-                    <h3>Titanic</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span>4.0</span>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-            </div>
+        <h2 class="section-title">Filmes em Destaque</h2>
+        <div class="carousel" id="carousel-filmes">
+            <!-- Conteúdo carregado dinamicamente por home.js -->
         </div>
     </section>
 
+    <!-- Séries em Destaque -->
+    <section class="featured">
+        <h2 class="section-title">Séries em Destaque</h2>
+        <div class="carousel" id="carousel-series">
+            <!-- Conteúdo carregado dinamicamente por home.js -->
+        </div>
+    </section>
     <!-- Top 3 Semanal -->
 <section class="top-movies">
     <h2 class="section-title">Top 3 Filmes da Semana</h2>
@@ -165,22 +98,7 @@
         <p>&copy; 2025 CineAvalia. Todos os direitos reservados.</p>
     </footer>
 
-    <script>
-        // Efeito de scroll no header
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+    <script th:src="@{/js/home.js}"></script>
 
-        // Simulação de dados para o carrossel 
-        document.addEventListener('DOMContentLoaded', function() {
-            // adicionar lógica para carregar filmes dinamicamente aqui
-            console.log('Página carregada!');
-        });
-    </script>
 </body>
 </html>
