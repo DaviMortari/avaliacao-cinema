@@ -99,7 +99,7 @@ public class AvaliacaoService {
         List<Avaliacao> avaliacoesDaSerie = repository.findAllBySerieId(serieId);
 
         return avaliacoesDaSerie.stream()
-            .map(this::converterParaDto) // Usando um método helper para mais clareza
+            .map(this::converterParaDto) 
             .collect(Collectors.toList());
     }
 

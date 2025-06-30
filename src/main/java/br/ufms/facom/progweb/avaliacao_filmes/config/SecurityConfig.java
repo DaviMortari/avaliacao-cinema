@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-//import static org.springframework.security.config.Customizer.withDefaults; // Para httpBasic
 
 @Configuration
 @EnableWebSecurity // Habilita a configuração de segurança web do Spring Security
@@ -31,29 +30,27 @@ public class SecurityConfig {
                 .frameOptions(frameOptions -> frameOptions.sameOrigin())) 
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    // PERMITIR TUDO INICIALMENTE PARA TESTE - MUITO INSEGURO PARA PRODUÇÃO
                     .requestMatchers(HttpMethod.POST, "/api/filmes","api/avaliacoes").permitAll()
                     .requestMatchers(HttpMethod.DELETE, "/api/avaliacoes").permitAll()
-                    .requestMatchers("/**").permitAll() // Permite acesso a TUDO sem autenticação
+                    // .requestMatchers("/**").permitAll() // Permite acesso a TUDO sem autenticação
 
-                    // Exemplo mais realista para começar:
-                    // .requestMatchers(
-                    //         "/pages/criarConta",
-                    //         "/pages/home",
-                    //         "/usuarios/salvar", // Seu endpoint de salvar usuário
-                    //         "/pages/entrar",    // Sua página de login
-                    //         "/perform_login",
-                    //         "/pages/filmes",
-                    //         "/pages/series",
-                    //         "/pages/sobre",
-                    //         "/api/filmes/listar",
-                    //         "/api/series/listar",   // Endpoint de processamento de login do Spring Security
-                    //         "/css/**",          // Seus arquivos CSS
-                    //         "/js/**",           // Seus arquivos JS
-                    //         "/img/**",          // Suas imagens
-                    //         "/api/filmes",      // Sua API de filmes, se for pública
-                    //         "/api/avaliacoes/filme/**" // Se quiser permitir ver avaliações sem login
-                    // ).permitAll() // Permite acesso a estas rotas/recursos sem autenticação
+                    .requestMatchers(
+                            "/pages/criarConta",
+                            "/pages/home",
+                            "/usuarios/salvar", // Seu endpoint de salvar usuário
+                            "/pages/entrar",    // Sua página de login
+                            "/perform_login",
+                            "/pages/filmes",
+                            "/pages/series",
+                            "/pages/sobre",
+                            "/api/filmes/listar",
+                            "/api/series/listar",   // Endpoint de processamento de login do Spring Security
+                            "/css/**",          
+                            "/js/**",           
+                            "/img/**",          
+                            "/api/filmes",      
+                            "/api/avaliacoes/filme/**" 
+                    ).permitAll() // Permite acesso a estas rotas/recursos sem autenticação
                     .anyRequest().authenticated() // Todas as outras requisições exigem autenticação
             )
             .formLogin(formLogin -> // Configura o formulário de login padrão do Spring Security
@@ -72,8 +69,6 @@ public class SecurityConfig {
                     .deleteCookies("JSESSIONID") // Remove o cookie de sessão
                     .permitAll()
             );
-            // Se você não tiver um formulário de login e quiser usar autenticação básica HTTP (popup do navegador)
-            // .httpBasic(withDefaults());
 
         return http.build();
     }

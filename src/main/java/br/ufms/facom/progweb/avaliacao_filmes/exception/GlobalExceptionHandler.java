@@ -10,8 +10,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
-        // Retorna uma resposta com o status HTTP 400 (Bad Request)
-        // e coloca a mensagem da sua exceção diretamente no corpo da resposta.
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(ex.getMessage());
