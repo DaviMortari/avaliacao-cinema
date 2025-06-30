@@ -87,4 +87,10 @@ public class SeriesService {
 
         return serieDto;   
     }
+    public List<SeriesCardDto> buscarTop3Series() {
+    List<Series> topSeries = repository.findTop3ByOrderByMediaAvaliacoesDesc();
+    return topSeries.stream()
+        .map(this::converterParaCardDto)
+        .collect(Collectors.toList());
+}
 }

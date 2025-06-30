@@ -77,7 +77,7 @@ nav a:hover {
 nav a.active {
     color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
-    cursor: default; /* opcional: impede clique */
+    cursor: default;
 }
 
 .auth-buttons {
@@ -113,7 +113,7 @@ nav a.active {
 
 /* Hero Section */
 .hero {
-    height: 100vh;
+    min-height: 100vh; /* Alterado de height para min-height para remover a barra de rolagem */
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/random/1920x1080/?movie,theater') no-repeat center center/cover;
     display: flex;
     flex-direction: column;
@@ -186,6 +186,7 @@ nav a.active {
 .featured {
     padding: 50px;
     background-color: var(--dark-color);
+    position: relative; /* Adicionado para corrigir a sobreposição */
 }
 
 .section-title {
@@ -208,23 +209,18 @@ nav a.active {
 .carousel {
     display: flex;
     gap: 20px;
-    overflow-x: auto;
-    padding: 20px 0;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none; /* Para Firefox */
-}
-
-.carousel::-webkit-scrollbar {
-    display: none; /* Para Chrome/Safari */
+    overflow-x: hidden; /* Oculta a barra de rolagem, a rolagem é feita via JS */
+    cursor: default; /* O cursor padrão, pois a rolagem é por hover nas bordas */
 }
 
 .movie-card {
     min-width: 250px;
-    scroll-snap-align: start;
-    transition: var(--transition);
+    flex-shrink: 0; /* Impede que os cards encolham */
+    transition: transform 0.2s ease;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
+    user-select: none; /* Impede que o usuário selecione o texto do card ao arrastar */
 }
 
 .movie-card:hover {
@@ -259,7 +255,7 @@ nav a.active {
     margin: 5px 0;
 }
 
-/* Top 10 Semanal */
+/* Top 3 Semanal */
 .top-movies {
     padding: 50px;
     background-color: #1a1a1a;
@@ -267,7 +263,7 @@ nav a.active {
 
 .top-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
 }
 
@@ -276,14 +272,22 @@ nav a.active {
     align-items: center;
     gap: 15px;
     background-color: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    border-radius: 5px;
+    padding: 10px;
+    border-radius: 8px;
     transition: var(--transition);
 }
 
 .top-item:hover {
     background-color: rgba(229, 9, 20, 0.2);
     transform: translateY(-5px);
+}
+
+.top-item-poster {
+    width: 60px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 5px;
+    flex-shrink: 0;
 }
 
 .rank {
