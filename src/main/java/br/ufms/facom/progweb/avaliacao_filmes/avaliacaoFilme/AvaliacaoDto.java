@@ -7,14 +7,16 @@ public class AvaliacaoDto {
     private Long itemId;
     private double nota;
     private String comentario;
+    private Long avaliacaoId;
 
     public AvaliacaoDto() {}
 
-    public AvaliacaoDto(UsuariosDto usuario, Long itemId, double nota, String comentario) {
+    public AvaliacaoDto(UsuariosDto usuario, Long itemId, double nota, String comentario, Long avaliacaoId) {
         this.usuario = usuario;
         this.itemId = itemId;
         this.nota = nota;
         this.comentario = comentario;
+        this.avaliacaoId = avaliacaoId;
     }
 
     public long getUsuarioId() {
@@ -46,5 +48,12 @@ public class AvaliacaoDto {
     }
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public Long getAvaliacaoId() {
+        return avaliacaoId;
+    }
+    public void setAvaliacaoId(Long avaliacaoId) {
+        this.avaliacaoId = avaliacaoId;
     }
 }

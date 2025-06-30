@@ -33,6 +33,7 @@ public class SecurityConfig {
                 authorizeRequests
                     // PERMITIR TUDO INICIALMENTE PARA TESTE - MUITO INSEGURO PARA PRODUÇÃO
                     .requestMatchers(HttpMethod.POST, "/api/filmes","api/avaliacoes").permitAll()
+                    .requestMatchers(HttpMethod.DELETE, "/api/avaliacoes").permitAll()
                     // .requestMatchers("/**").permitAll() // Permite acesso a TUDO sem autenticação
 
                     // Exemplo mais realista para começar:
@@ -65,7 +66,7 @@ public class SecurityConfig {
             )
             .logout(logout -> // Configura o logout
                 logout
-                    .logoutUrl("/perform_logout") // URL para acionar o logout
+                    .logoutUrl("/perform_logout")
                     .logoutSuccessUrl("/pages/entrar?logout") // Para onde ir após logout
                     .invalidateHttpSession(true) // Invalida a sessão HTTP
                     .deleteCookies("JSESSIONID") // Remove o cookie de sessão

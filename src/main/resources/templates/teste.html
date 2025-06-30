@@ -124,6 +124,11 @@
                     <p class="avaliacao-comentario" th:text="${avaliacao.comentario}">
                         Este é um comentário de exemplo sobre o filme.
                     </p>
+                    <div class="avaliacao-actions" >
+                        <button class="btn-excluir" th:attr="data-avaliacao-id=${avaliacao.avaliacaoId}">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
                 </div> 
             </div>
         </section>
@@ -238,6 +243,36 @@
                 statusElement.textContent = `Falha ao enviar: ${error.message}`;
                 statusElement.className = 'status-message error';
                 console.error('Erro durante o fetch:', error);
+            }
+        });
+
+        document.addEventListener('click', async function(event) {
+            // Verifica se o elemento clicado (ou um de seus pais) é o botão de excluir
+            const deleteButton = event.target.closest('.btn-excluir');
+
+            if (deleteButton) {
+                const avaliacaoId = deleteButton.dataset.avaliacaoId; // Pega o ID do atributo data-avaliacao-id
+
+                if (confirm('Tem certeza que deseja excluir esta avaliação?')) {
+                    try {
+                        const response = await fetch(`/api/avaliacoes/${avaliacaoId}`, {
+                            method: 'DELETE'
+                            // O token de autenticação (cookie de sessão) é enviado automaticamente pelo navegador
+                        });
+
+                        if (response.ok) {
+                            alert('Avaliação excluída com sucesso!');
+                            // Remove o card da avaliação da tela para feedback imediato
+                            deleteButton.closest('.avaliacao-card').remove();
+                        } else {
+                            // Tenta ler a mensagem de erro do servidor
+                            const errorText = await response.text();
+                            throw new Error(errorText || `Erro: ${response.status}`);
+                        }
+                    } catch (error) {
+                        alert(`Falha ao excluir: ${error.message}`);
+                    }
+                }
             }
         });
 </script>

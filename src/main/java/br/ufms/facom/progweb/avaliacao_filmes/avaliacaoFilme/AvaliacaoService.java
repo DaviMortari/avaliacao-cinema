@@ -52,7 +52,8 @@ public class AvaliacaoService {
                 usuarioDto,
                 avaliacao.getFilme().getId(),
                 avaliacao.getNota(),
-                avaliacao.getComentario()
+                avaliacao.getComentario(),
+                avaliacao.getId()
             );
         }
         else{
@@ -60,7 +61,8 @@ public class AvaliacaoService {
                 usuarioDto,
                 avaliacao.getSerie().getId(),
                 avaliacao.getNota(),
-                avaliacao.getComentario()
+                avaliacao.getComentario(),
+                avaliacao.getId()
             );
         }
     }
@@ -140,5 +142,23 @@ public class AvaliacaoService {
         
 
         repository.save(novaAvaliacao);
+    }
+
+    public void excluirAvaliacao(long id, String username) {
+        Avaliacao avaliacao = repository.findById(id);
+        if (avaliacao == null) {
+            throw new IllegalArgumentException("Avaliação não encontrada com o ID: " + id);
+        }
+
+        Usuarios usuario = usuariosRepository.findByEmail(username);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não encontrado com o Email: " + username);
+        }
+
+        if(avaliacao.getUsuario().getId().equals(usuario.getId()) || "ADMIN".equals(usuario.getTipoUsuario().toString())) {
+            repository.delete(avaliacao);
+        } else {
+            throw new SecurityException("Usuário não tem permissão para excluir esta avaliação.");
+        }
     }
 }

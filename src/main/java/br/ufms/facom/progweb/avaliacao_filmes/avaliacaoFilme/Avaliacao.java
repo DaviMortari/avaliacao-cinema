@@ -29,7 +29,7 @@ public class Avaliacao implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private double nota;
@@ -90,7 +90,7 @@ public class Avaliacao implements Serializable{
 
     public Avaliacao() {}
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
     public void setId(long id) {

@@ -24,7 +24,7 @@ public class Usuarios implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column
     private String nome;
@@ -61,7 +61,7 @@ public class Usuarios implements Serializable{
         this.tipoUsuario = tipoUsuario;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
