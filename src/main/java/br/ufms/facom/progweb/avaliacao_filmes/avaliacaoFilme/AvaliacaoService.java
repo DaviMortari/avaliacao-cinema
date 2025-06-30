@@ -109,39 +109,54 @@ public class AvaliacaoService {
             throw new IllegalArgumentException("Usuário não encontrado com o Email: " + username);
         }
 
-        Avaliacao novaAvaliacao;
-
-        if("FILME".equals(dto.getTipoItemAvaliado())){
-            Filmes filme = filmeRepository.findById(dto.getFilmeId());
-            if (filme == null) {
-                throw new IllegalArgumentException("Filme não encontrado com o ID: " + dto.getFilmeId());
-            }
-
-            novaAvaliacao = new Avaliacao(
-                dto.getNota(),
-                dto.getComentario(),
-                LocalDateTime.now(),
-                filme,
-                usuario
-            );
+        if(repository.existsByUsuario_IdAndFilme_Id(usuario.getId(), dto.getFilmeId()) && "FILME".equals(dto.getTipoItemAvaliado())) {
+            // throw new IllegalArgumentException("Usuário já avaliou este filme.");
+            Avaliacao avaliacaoId = repository.findIdByFilme_idAndUsuario_Email(dto.getFilmeId(), usuario.getEmail());
+            mudarAvaliacao(avaliacaoId.getId(), dto, usuario.getEmail());
         }
+
+        else if(repository.existsByUsuario_IdAndSerie_Id(usuario.getId(), dto.getSerieId()) && "SERIE".equals(dto.getTipoItemAvaliado())) {
+            // throw new IllegalArgumentException("Usuário já avaliou esta série.");
+            Avaliacao avaliacaoId = repository.findIdBySerie_idAndUsuario_Email(dto.getSerieId(), usuario.getEmail());
+            mudarAvaliacao(avaliacaoId.getId(), dto, usuario.getEmail());
+        }
+
         else{
-            Series serie = seriesRepository.findById(dto.getSerieId());
-            if(serie == null) {
-                throw new IllegalArgumentException("Série não encontrada com o ID: " + dto.getSerieId());
+            Avaliacao novaAvaliacao;
+
+            if("FILME".equals(dto.getTipoItemAvaliado())){
+                
+                Filmes filme = filmeRepository.findById(dto.getFilmeId());
+                if (filme == null) {
+                    throw new IllegalArgumentException("Filme não encontrado com o ID: " + dto.getFilmeId());
+                }
+
+                novaAvaliacao = new Avaliacao(
+                    dto.getNota(),
+                    dto.getComentario(),
+                    LocalDateTime.now(),
+                    filme,
+                    usuario
+                );
             }
+            else{
+                Series serie = seriesRepository.findById(dto.getSerieId());
+                if(serie == null) {
+                    throw new IllegalArgumentException("Série não encontrada com o ID: " + dto.getSerieId());
+                }
 
-            novaAvaliacao = new Avaliacao(
-                dto.getNota(),
-                dto.getComentario(),
-                LocalDateTime.now(),
-                serie,
-                usuario
-            );
-        }
-        
+                novaAvaliacao = new Avaliacao(
+                    dto.getNota(),
+                    dto.getComentario(),
+                    LocalDateTime.now(),
+                    serie,
+                    usuario
+                );
+            }
+            
 
-        repository.save(novaAvaliacao);
+            repository.save(novaAvaliacao);
+        }  
     }
 
     public void excluirAvaliacao(long id, String username) {
@@ -159,6 +174,26 @@ public class AvaliacaoService {
             repository.delete(avaliacao);
         } else {
             throw new SecurityException("Usuário não tem permissão para excluir esta avaliação.");
+        }
+    }
+
+    public void mudarAvaliacao(long id, AvaliacaoRequestDto dto, String username) {
+        Avaliacao avaliacao = repository.findById(id);
+        if (avaliacao == null) {
+            throw new IllegalArgumentException("Avaliação não encontrada com o ID: " + id);
+        }
+
+        Usuarios usuario = usuariosRepository.findByEmail(username);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não encontrado com o Email: " + username);
+        }
+
+        if(avaliacao.getUsuario().getId().equals(usuario.getId())) {
+            avaliacao.setNota(dto.getNota());
+            avaliacao.setComentario(dto.getComentario());
+            repository.save(avaliacao);
+        } else {
+            throw new SecurityException("Usuário não tem permissão para alterar esta avaliação.");
         }
     }
 }

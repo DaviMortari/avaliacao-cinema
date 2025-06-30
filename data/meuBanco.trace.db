@@ -1323,3 +1323,18 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /home/davi/Docum
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 63 more
+2025-06-30 15:28:14.135373-04:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found; SQL statement:
+select * from usuario [42102-232]
+2025-06-30 15:42:50.581874-04:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "update usuarios\000d\000aset senha [*]'$2a$12$rR7KjS.C89p1eO..3zy7q.oo.1J7PnOWRtuzZOAqNoNx.q4FnqS.e'"; expected "., [, ="; SQL statement:
+update usuarios
+set senha '$2a$12$rR7KjS.C89p1eO..3zy7q.oo.1J7PnOWRtuzZOAqNoNx.q4FnqS.e' [42001-232]
+2025-06-30 15:43:01.824743-04:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "update usuarios\000d\000aset senha [*]'$2a$12$rR7KjS.C89p1eO..3zy7q.oo.1J7PnOWRtuzZOAqNoNx.q4FnqS.e'\000d\000awhere id = 2"; expected "., [, ="; SQL statement:
+update usuarios
+set senha '$2a$12$rR7KjS.C89p1eO..3zy7q.oo.1J7PnOWRtuzZOAqNoNx.q4FnqS.e'
+where id = 2 [42001-232]
+2025-06-30 16:31:05.074673-04:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "AVALIACOES" not found; SQL statement:
+select * from avaliacoes [42102-232]
